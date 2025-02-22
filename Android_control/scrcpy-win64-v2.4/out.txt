@@ -1,0 +1,640 @@
+
+WINDOW MANAGER LAST ANR (dumpsys window lastanr)
+  <no ANR has occurred since boot>
+
+WINDOW MANAGER POLICY STATE (dumpsys window policy)
+    mSafeMode=false mSystemReady=true mSystemBooted=true
+    mLidState=LID_ABSENT mLidOpenRotation=-1
+    mCameraLensCoverState=CAMERA_LENS_COVER_ABSENT mHdmiPlugged=false
+    mLastSystemUiFlags=0x9716 mResettingSystemUiFlags=0x0 mForceClearedSystemUiFlags=0x0
+    mWakeGestureEnabledSetting=true
+    mSupportAutoRotation=true mOrientationSensorEnabled=true
+    mUiMode=UI_MODE_TYPE_NORMAL mDockMode=EXTRA_DOCK_STATE_UNDOCKED
+    mEnableCarDockHomeCapture=true mCarDockRotation=-1 mDeskDockRotation=-1
+    mUserRotationMode=USER_ROTATION_FREE mUserRotation=ROTATION_0 mAllowAllRotations=false
+    mCurrentAppOrientation=SCREEN_ORIENTATION_PORTRAIT
+    mCarDockEnablesAccelerometer=true mDeskDockEnablesAccelerometer=true
+    mLidKeyboardAccessibility=0 mLidNavigationAccessibility=0 mLidControlsScreenLock=false
+    mLidControlsSleep=false
+    mLongPressOnBackBehavior=LONG_PRESS_BACK_NOTHING
+    mLongPressOnHomeBehavior=LONG_PRESS_HOME_ASSIST
+    mDoubleTapOnHomeBehavior=DOUBLE_TAP_HOME_NOTHING
+    mShortPressOnPowerBehavior=SHORT_PRESS_POWER_GO_TO_SLEEP
+    mLongPressOnPowerBehavior=LONG_PRESS_POWER_GLOBAL_ACTIONS
+    mVeryLongPressOnPowerBehavior=VERY_LONG_PRESS_POWER_NOTHING
+    mDoublePressOnPowerBehavior=106
+    mTriplePressOnPowerBehavior=104
+    mShortPressOnSleepBehavior=SHORT_PRESS_SLEEP_GO_TO_SLEEP
+    mShortPressOnWindowBehavior=SHORT_PRESS_WINDOW_PICTURE_IN_PICTURE
+    mAllowStartActivityForLongPressOnPowerDuringSetup=false
+    mHasSoftInput=true mDismissImeOnBackKeyPressed=false
+    mIncallPowerBehavior=sleep mIncallBackBehavior=<nothing> mEndcallBehavior=sleep
+    mHomePressed=false
+    mAwake=true mScreenOnEarly=true mScreenOnFully=true
+    mKeyguardDrawComplete=true mWindowManagerDrawComplete=true
+    mDockLayer=268435456 mStatusBarLayer=0
+    mShowingDream=false mDreamingLockscreen=false mDreamingSleepToken=null
+    mStatusBar=Window{d253c4f u0 StatusBar} isStatusBarKeyguard=false
+    mNavigationBar=Window{b4fc29e u0 NavigationBar}
+    mFocusedWindow=Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}
+    mFocusedApp=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}
+    mTopFullscreenOpaqueWindowState=Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}
+    mTopFullscreenOpaqueOrDimmingWindowState=Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}
+    mTopIsFullscreen=true mKeyguardOccluded=false
+    mKeyguardOccludedChanged=false mPendingKeyguardOccluded=false
+    mForceStatusBar=false mForceStatusBarFromKeyguard=false
+    mAllowLockscreenWhenOn=false mLockScreenTimeout=600000 mLockScreenTimerActive=false
+    mLandscapeRotation=ROTATION_90 mSeascapeRotation=ROTATION_270
+    mPortraitRotation=ROTATION_0 mUpsideDownRotation=ROTATION_180
+    mDemoHdmiRotation=ROTATION_90 mDemoHdmiRotationLock=false
+    mUndockedHdmiRotation=-1
+    mKeyMapping.size=0
+    BarController.StatusBar
+      mState=WINDOW_STATE_HIDDEN
+      mTransientBar=TRANSIENT_BAR_NONE
+      mContentFrame=Rect(0, 0 - 720, 57)
+    BarController.NavigationBar
+      mState=WINDOW_STATE_HIDDEN
+      mTransientBar=TRANSIENT_BAR_NONE
+      mContentFrame=Rect(0, 1436 - 720, 1520)
+    PolicyControl.sImmersiveStatusFilter=null
+    PolicyControl.sImmersiveNavigationFilter=null
+    PolicyControl.sImmersivePreconfirmationsFilter=null
+    PolicyControl.sDexMode=0
+    PolicyControl.sDexStandAloneModeEnabled=false
+    WakeGestureListener
+      mTriggerRequested=false
+      mSensor=null
+    WindowOrientationListener
+      mEnabled=true
+      mCurrentRotation=ROTATION_0
+      mSemContextManager=android.hardware.scontext.SContextManager@58911f7
+      OrientationSensorJudge
+        mDesiredRotation=-1
+        mProposedRotation=-1
+        mTouching=false
+        mTouchEndedTimestampNanos=94267988239634
+    KeyguardServiceDelegate
+      showing=false
+      showingAndNotOccluded=true
+      inputRestricted=false
+      occluded=false
+      secure=true
+      dreaming=false
+      systemIsReady=true
+      deviceHasKeyguard=true
+      enabled=true
+      offReason=OFF_BECAUSE_OF_USER
+      currentUser=0
+      bootCompleted=true
+      screenState=SCREEN_STATE_ON
+      interactiveState=INTERACTIVE_STATE_AWAKE
+      KeyguardStateMonitor
+        mIsShowing=false
+        mSimSecure=false
+        mInputRestricted=false
+        mTrusted=false
+        mCurrentUserId=0
+    Looper state:
+      Looper (android.ui, tid 23) {ae01864}
+        (Total messages: 0, polling=true, quitting=false)
+
+    --- Samsung Window Policy ---
+    PowerKeyTriggered=false PowerKeyConsumed=false
+    HomeKeyTriggered=false HomeKeyConsumed=false
+    VolumeDownKeyTriggered=false VolumeDownKeyConsumed=false
+    VolumeUpKeyTriggered=false VolumeUpKeyConsumed=false
+    WiFiProtectedSetupKeyTriggered=false WiFiProtectedSetupKeyConsumed=false
+    BackKeyTriggered=false
+    RecentKeyTriggered=false
+    MenuKeyTriggered=false MenuKeyConsumed=false
+    EnterKeyTriggered=false EnterKeyConsumed=false
+    mTriggeredVolumeDownKeyUp=true mTriggeredPowerKeyUptrue
+ mIsTriggeredScreenshotfalse
+    mTopActivityWindow=Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}
+    SystemGestures
+      mSwipeStartThreshold=95
+      mSwipeDistanceThreshold=95
+    mSafeModeReason=null
+    isOneHandOpEnabled=false
+    mOneHandOpTriggeredType=0
+    mOneHandOpController=null
+    mOneHandOpHandler=null
+    mIsSafetyAssuranceEnabled=false mIsInteractionControlTurnedOn=false mIsInteractionControlEnabled=false
+    mDoubleTapLaunchBehavior=3    mDoubleTapEnabled=false mIsAvailableDoubleTapLaunch=true
+    mIsDirectAccessEnabled=false
+    mIsMobileKeyboardEnabled=false
+    mMobileKeyboardHeight=0
+
+    isCarModeEnabled=false
+    mCarModeSize=126
+    mInputMethod=Window{8057146 u0 InputMethod}
+    mIsSupportCover=true
+    mHideSViewCoverWindowState=null
+    mHiddenWindowsByCover=[]
+    mPolicy.mAodShowing=false
+    mRequestedToApplyAodPolicy=false
+    mPenState=1
+    mIsEasyModeEnabled=false
+    mHasFakeMenuKeyRecent=false mHasFakeMenuKeyBack=false
+    mSideSyncSourcePresentationActivated=false
+    mBixbyComponent=ComponentInfo{com.samsung.android.bixby.agent/com.samsung.android.bixby.WinkService}
+    mWakingUpReason=18
+    mIsSupportDoubleTapToWakeUp=true
+mIsDoubleTapToWakeUp=true
+    mIsHapticsDisabled=true
+mIsAssistHapticDisabled=false
+    mEnableFunctionKeyDoubleTap=true
+ mFunctionKeyDoubleTapType=0
+ mFunctionKeyDoubleTapComp=
+ mFunctionKeyLongPressType=1
+ MULTI DISPLAY POLICY MANAGER
+
+WINDOW MANAGER ANIMATOR STATE (dumpsys window animator)
+    DisplayContentsAnimator #0:
+      Window #0: WindowStateAnimator{a310acd com.android.systemui.ImageWallpaper}
+      Window #1: WindowStateAnimator{3d87504 com.threefiveeight.adda/com.threefiveeight.adda.MainActivity}
+      Window #2: WindowStateAnimator{5a5b70c com.google.android.youtube/com.google.android.youtube.app.honeycomb.Shell$HomeActivity}
+      Window #3: WindowStateAnimator{fba3f82 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}
+      Window #4: WindowStateAnimator{232d693 }
+      Window #5: WindowStateAnimator{36f6be6 com.gof.global/com.unity3d.player.MyMainPlayerActivity}
+      Window #6: WindowStateAnimator{5b856d0 DockedStackDivider}
+      Window #7: WindowStateAnimator{ed086c9 AssistPreviewPanel}
+      Window #8: WindowStateAnimator{50d1ce ContainerKeyguardScrim}
+      Window #9: WindowStateAnimator{5aa48ef StatusBar}
+      Window #10: WindowStateAnimator{3940ffc com.samsung.android.app.cocktailbarservice/com.samsung.android.app.cocktailbarservice.CocktailBarService}
+      Window #11: WindowStateAnimator{bd1c685 Bouncer}
+      Window #12: WindowStateAnimator{2ac3cda NavigationBar}
+      Window #13: WindowStateAnimator{87c850b PointerLocation}
+      Window #14: WindowStateAnimator{f102fe8 InputMethod}
+
+
+    mBulkUpdateParams=0x8 ORIENTATION_CHANGE_COMPLETE
+
+WINDOW MANAGER SESSIONS (dumpsys window sessions)
+  Session Session{8f793c 26551:u0a10259}:
+    mNumWindow=1 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@ded4601
+    mPackageName=com.gof.global
+  Session Session{1fbfe95 7121:u0a10160}:
+    mNumWindow=1 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@f214ca6
+    mPackageName=com.google.android.youtube
+  Session Session{3ccb196 10058:u0a10022}:
+    mNumWindow=1 mNumSystemWindow=1 mCanAddInternalSystemWindow=true mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@4ec66e7
+    mPackageName=com.samsung.android.app.cocktailbarservice
+  Session Session{3d4d51b 20787:u0a10089}:
+    mNumWindow=0 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@dac6294
+    mPackageName=com.android.settings.intelligence
+  Session Session{4f501f3 8899:u0a10017}:
+    mNumWindow=1 mNumSystemWindow=0 mCanAddInternalSystemWindow=true mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@ae7413d
+    mPackageName=com.samsung.android.app.spage
+  Session Session{59caa9e 14643:u0a10082}:
+    mNumWindow=0 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@c858d32
+    mPackageName=com.samsung.android.messaging
+  Session Session{5bd9b2b 8406:u0a10194}:
+    mNumWindow=1 mNumSystemWindow=1 mCanAddInternalSystemWindow=true mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@c8e8a83
+    mPackageName=com.sec.android.inputmethod
+  Session Session{5d7d22b 7991:u0a10113}:
+    mNumWindow=1 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@b371400
+    mPackageName=com.sec.android.app.launcher
+  Session Session{619e84b 5979:1000}:
+    mNumWindow=2 mNumSystemWindow=2 mCanAddInternalSystemWindow=true mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@68bb439
+    mPackageName=com.gof.global
+  Session Session{6bdc81e 14854:u0a10131}:
+    mNumWindow=0 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@77b4a7e
+    mPackageName=com.android.chrome
+  Session Session{6d4ffc7 22127:1000}:
+    mNumWindow=0 mNumSystemWindow=0 mCanAddInternalSystemWindow=true mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@ba54bdf
+    mPackageName=com.android.settings
+  Session Session{8938f21 29803:u0a10043}:
+    mNumWindow=0 mNumSystemWindow=0 mCanAddInternalSystemWindow=true mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@ff9702c
+    mPackageName=com.samsung.android.game.gametools
+  Session Session{a59ddd9 7395:u0a10045}:
+    mNumWindow=0 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@b6a5af5
+    mPackageName=com.google.android.gms
+  Session Session{c086209 14569:u0a10370}:
+    mNumWindow=1 mNumSystemWindow=0 mCanAddInternalSystemWindow=false mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@27d908a
+    mPackageName=com.threefiveeight.adda
+  Session Session{f1aa9b1 6399:u0a10008}:
+    mNumWindow=6 mNumSystemWindow=6 mCanAddInternalSystemWindow=true mAppOverlaySurfaces=[] mAlertWindowSurfaces=[] mClientDead=false mSurfaceSession=android.view.SurfaceSession@63cc6fb
+    mPackageName=com.android.systemui
+
+WINDOW MANAGER DISPLAY CONTENTS (dumpsys window displays)
+  mLastLayer=0
+  Display: mDisplayId=0
+    init=1440x3040 560dpi base=720x1520 280dpi cur=720x1520 app=720x1379 rng=720x678-1379x1379
+    deferred=false mLayoutNeeded=false mTouchExcludeRegion=SkRegion((0,0,720,1520))
+
+    initCutout=DisplayCutout{insets=Rect(0, 113 - 0, 0) boundingRect=Rect(639, 0 - 801, 113)}
+    baseCutout=DisplayCutout{insets=Rect(0, 57 - 0, 0) boundingRect=Rect(320, 0 - 401, 57)}
+
+  mLayoutSeq=12056
+
+  Application tokens in top down Z order:
+    mStackId=31
+    mDeferRemoval=false
+    mBounds=[0,0][720,1520]
+      mLastLayer=0
+      taskId=20892
+        mBounds=[0,0][720,1520]
+        mdr=false
+        appTokens=[AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}}]
+        mTempInsetBounds=[0,0][0,0]
+        mFullConfig={1.0 404mcc20mnc [en_GB] ldltr sw411dp w411dp h788dp 280dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1520) mAppBounds=Rect(0, 57 - 720, 1436) mWindowingMode=fullscreen mActivityType=standard} s.38 mkbd/h desktop/d bts=0 themeSeq=0 ff=0 bf=-1 ?dc}
+        mOverrideConfig={0.0 ?mcc?mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mWindowingMode=undefined mActivityType=undefined} mkbd/? desktop/? bts=-1 themeSeq=0 ff=0 bf=-1 ?dc}
+        mResizeMode=RESIZE_MODE_UNRESIZEABLE mRotation=0
+        mBackgroundController=TaskBackground {taskId=20892 hasSurface=false shown=false target=null}
+          Activity #0 AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}}
+            mLastLayer=0
+            windows=[Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}]
+            windowType=2 hidden=false hasVisible=true
+            app=true mVoiceInteraction=false
+            task={taskId=20892 appTokens=[AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}}] mdr=false}
+             mFillsParent=true mOrientation=1
+            hiddenRequested=false mClientHidden=false reportedDrawn=true reportedVisible=true
+            mNumInterestingWindows=1 mNumDrawnWindows=1 inPendingTransaction=false allDrawn=true lastAllDrawn=true)
+            startingData=null removed=false firstWindowDrawn=true mIsExiting=false
+            controller=AppWindowContainerController{ token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}} mContainer=AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}} mListener=ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}
+    mStackId=0
+    mDeferRemoval=false
+    mBounds=[0,0][720,1520]
+      mLastLayer=0
+      taskId=2
+        mBounds=[0,0][720,1520]
+        mdr=false
+        appTokens=[AppWindowToken{697da8a token=Token{5b78cf5 ActivityRecord{f542a2c u0 com.sec.android.app.launcher/.activities.LauncherActivity t2}}}]
+        mTempInsetBounds=[0,0][0,0]
+        mFullConfig={1.0 404mcc20mnc [en_GB] ldltr sw411dp w411dp h788dp 280dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1520) mAppBounds=Rect(0, 57 - 720, 1436) mWindowingMode=fullscreen mActivityType=home} s.38 mkbd/h desktop/d bts=0 themeSeq=0 ff=0 bf=-1 ?dc}
+        mOverrideConfig={0.0 ?mcc?mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mWindowingMode=undefined mActivityType=undefined} mkbd/? desktop/? bts=-1 themeSeq=0 ff=0 bf=-1 ?dc}
+        mResizeMode=RESIZE_MODE_RESIZEABLE mRotation=0
+        mBackgroundController=TaskBackground {taskId=2 hasSurface=false shown=false target=null}
+          Activity #0 AppWindowToken{697da8a token=Token{5b78cf5 ActivityRecord{f542a2c u0 com.sec.android.app.launcher/.activities.LauncherActivity t2}}}
+            mLastLayer=0
+            windows=[Window{97b8151 u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}]
+            windowType=2 hidden=true hasVisible=true
+            app=true mVoiceInteraction=false
+            task={taskId=2 appTokens=[AppWindowToken{697da8a token=Token{5b78cf5 ActivityRecord{f542a2c u0 com.sec.android.app.launcher/.activities.LauncherActivity t2}}}] mdr=false}
+             mFillsParent=true mOrientation=5
+            hiddenRequested=true mClientHidden=true reportedDrawn=false reportedVisible=false
+            mAppStopped=true
+            mNumInterestingWindows=1 mNumDrawnWindows=1 inPendingTransaction=false allDrawn=true lastAllDrawn=true)
+            startingData=null removed=false firstWindowDrawn=true mIsExiting=false
+            controller=AppWindowContainerController{ token=Token{5b78cf5 ActivityRecord{f542a2c u0 com.sec.android.app.launcher/.activities.LauncherActivity t2}} mContainer=AppWindowToken{697da8a token=Token{5b78cf5 ActivityRecord{f542a2c u0 com.sec.android.app.launcher/.activities.LauncherActivity t2}}} mListener=ActivityRecord{f542a2c u0 com.sec.android.app.launcher/.activities.LauncherActivity t2}}
+    mStackId=24
+    mDeferRemoval=false
+    mBounds=[0,0][720,1520]
+      mLastLayer=0
+      taskId=20890
+        mBounds=[0,0][720,1520]
+        mdr=false
+        appTokens=[AppWindowToken{28969eb token=Token{5bc293a ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}}}]
+        mTempInsetBounds=[0,0][0,0]
+        mFullConfig={1.0 404mcc20mnc [en_GB] ldltr sw411dp w411dp h788dp 280dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1520) mAppBounds=Rect(0, 57 - 720, 1436) mWindowingMode=fullscreen mActivityType=standard} s.38 mkbd/h desktop/d bts=0 themeSeq=0 ff=0 bf=-1 ?dc}
+        mOverrideConfig={0.0 ?mcc?mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mWindowingMode=undefined mActivityType=undefined} mkbd/? desktop/? bts=-1 themeSeq=0 ff=0 bf=-1 ?dc}
+        mResizeMode=RESIZE_MODE_RESIZEABLE mRotation=0
+        mBackgroundController=TaskBackground {taskId=20890 hasSurface=false shown=false target=null}
+          Activity #0 AppWindowToken{28969eb token=Token{5bc293a ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}}}
+            mLastLayer=0
+            windows=[Window{5935602 u0 com.google.android.youtube/com.google.android.youtube.app.honeycomb.Shell$HomeActivity}]
+            windowType=2 hidden=true hasVisible=true
+            app=true mVoiceInteraction=false
+            task={taskId=20890 appTokens=[AppWindowToken{28969eb token=Token{5bc293a ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}}}] mdr=false}
+             mFillsParent=true mOrientation=12
+            hiddenRequested=true mClientHidden=true reportedDrawn=false reportedVisible=false
+            mAppStopped=true
+            mNumInterestingWindows=1 mNumDrawnWindows=1 inPendingTransaction=false allDrawn=true lastAllDrawn=true)
+            startingData=null removed=false firstWindowDrawn=true mIsExiting=false
+            controller=AppWindowContainerController{ token=Token{5bc293a ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}} mContainer=AppWindowToken{28969eb token=Token{5bc293a ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}}} mListener=ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}}
+    mStackId=25
+    mDeferRemoval=false
+    mBounds=[0,0][720,1520]
+      mLastLayer=0
+      taskId=20896
+        mBounds=[0,0][720,1520]
+        mdr=false
+        appTokens=[AppWindowToken{3e98b7c token=Token{f42826f ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}}}]
+        mTempInsetBounds=[0,0][0,0]
+        mFullConfig={1.0 404mcc20mnc [en_GB] ldltr sw411dp w411dp h788dp 280dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1520) mAppBounds=Rect(0, 57 - 720, 1436) mWindowingMode=fullscreen mActivityType=standard} s.38 mkbd/h desktop/d bts=0 themeSeq=0 ff=0 bf=-1 ?dc}
+        mOverrideConfig={0.0 ?mcc?mnc ?localeList ?layoutDir ?swdp ?wdp ?hdp ?density ?lsize ?long ?ldr ?wideColorGamut ?orien ?uimode ?night ?touch ?keyb/?/? ?nav/? winConfig={ mBounds=Rect(0, 0 - 0, 0) mAppBounds=null mWindowingMode=undefined mActivityType=undefined} mkbd/? desktop/? bts=-1 themeSeq=0 ff=0 bf=-1 ?dc}
+        mResizeMode=RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION mRotation=0
+        mBackgroundController=TaskBackground {taskId=20896 hasSurface=false shown=false target=null}
+          Activity #0 AppWindowToken{3e98b7c token=Token{f42826f ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}}}
+            mLastLayer=0
+            windows=[Window{1e57b1a u0 com.threefiveeight.adda/com.threefiveeight.adda.MainActivity}]
+            windowType=2 hidden=true hasVisible=true
+            app=true mVoiceInteraction=false
+            task={taskId=20896 appTokens=[AppWindowToken{3e98b7c token=Token{f42826f ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}}}] mdr=false}
+             mFillsParent=true mOrientation=12
+            hiddenRequested=true mClientHidden=true reportedDrawn=false reportedVisible=false
+            mAppStopped=true
+            mNumInterestingWindows=1 mNumDrawnWindows=1 inPendingTransaction=false allDrawn=true lastAllDrawn=true)
+            startingData=null removed=false firstWindowDrawn=true mIsExiting=false
+            controller=AppWindowContainerController{ token=Token{f42826f ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}} mContainer=AppWindowToken{3e98b7c token=Token{f42826f ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}}} mListener=ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}}
+
+
+  homeStack=Stack=0
+
+  DockedStackDividerController
+    mLastVisibility=false
+    mMinimizedDock=false
+    mAdjustedForIme=false
+    mAdjustedForDivider=false
+
+  PinnedStackController
+    defaultBounds=[356,1219][692,1408]
+    movementBounds=[28,85][692,1408]
+    mIsImeShowing=false
+    mImeHeight=0
+    mIsShelfShowing=false
+    mShelfHeight=165
+    mReentrySnapFraction=-1.0
+    mIsMinimized=false
+    mActions=[]
+   mDisplayInfo=DisplayInfo{"Built-in Screen", uniqueId "local:0", app 720 x 1379, real 720 x 1520, largest app 1379 x 1379, smallest app 720 x 678, mode 1, defaultMode 1, modes [{id=1, width=1440, height=3040, fps=60.000004}], colorMode 0, supportedColorModes [0, 9], hdrCapabilities android.view.Display$HdrCapabilities@31254ca8, rotation 0, density 280 (250.5205 x 249.0835) dpi, layerStack 0, appVsyncOff 1000000, presDeadline 17666666, type BUILT_IN, state ON, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS, removeMode 0}
+
+  DisplayFrames w=720 h=1520 r=0
+    mStable=[0,57][720,1436]
+    mStableFullscreen=[0,0][720,1436]
+    mDock=[0,0][720,1520]
+    mCurrent=[0,0][720,1520]
+    mSystem=[0,0][720,1520]
+    mContent=[0,0][720,1520]
+    mVoiceContent=[0,0][720,1520]
+    mOverscan=[0,0][720,1520]
+    mRestrictedOverscan=[0,0][720,1520]
+    mRestricted=[0,0][720,1520]
+    mUnrestricted=[0,0][720,1520]
+    mDisplayInfoOverscan=[0,0][0,0]
+    mRotatedDisplayInfoOverscan=[0,0][0,0]
+    mDisplayCutout=com.android.server.wm.utils.WmDisplayCutout@17968ee2
+
+    mTouchExcludeRegion=SkRegion((0,0,720,1520))
+    mPointerTouchExcludeRegion=SkRegion((0,0,720,1520))
+    MultiWindowPointerEventListener{display #0}
+      MultiWindowEdgeDetector{Start(26x42) Screen(720x1520) Or=1 Radius=224 Degree=70 EdgeFlags=0 PointerObject=true}
+    mCurrentFocus=Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}
+    mFocusedApp=AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}}
+
+
+WINDOW MANAGER TOKENS (dumpsys window tokens)
+  All tokens:
+  Display #0
+  WindowToken{7574205 android.os.BinderProxy@71c497c}
+  AppWindowToken{697da8a token=Token{5b78cf5 ActivityRecord{f542a2c u0 com.sec.android.app.launcher/.activities.LauncherActivity t2}}}
+  WindowToken{58d15c3 android.view.ViewRootImpl$W@b5708d4}
+  WindowToken{19bf6ae android.os.BinderProxy@22fb329}
+  AppWindowToken{28969eb token=Token{5bc293a ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}}}
+  WindowToken{66758e5 android.os.BinderProxy@554efdc}
+  AppWindowToken{3e98b7c token=Token{f42826f ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}}}
+  WindowToken{af25e88 android.os.BinderProxy@b25ca2b}
+  WindowToken{1c82303 android.view.ViewRootImpl$W@fbc37b2}
+  WindowToken{7a30362 android.os.Binder@2e2bfd6}
+  WindowToken{48d4a49 android.os.BinderProxy@827f850}
+  WallpaperWindowToken{4d1217a token=android.os.Binder@9ded9a5}
+  WindowToken{2c478d9 android.os.BinderProxy@1bb8720}
+  AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}}
+
+WINDOW MANAGER WINDOWS (dumpsys window windows)
+  Window #0 Window{4340280 u0 PointerLocation}:
+    mDisplayId=0 stackId=0 mSession=Session{619e84b 5979:1000} mClient=android.view.ViewRootImpl$W@fbc37b2
+    mOwnerUid=1000 mShowToOwnerOnly=true package=android appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} layoutInDisplayCutoutMode=always ty=SECURE_SYSTEM_OVERLAY fmt=TRANSLUCENT if=NO_INPUT_CHANNEL
+      fl=1000518
+      pfl=2 naviIconColor=0}
+    Requested w=720 h=1520 mLayoutSeq=12056
+    mHasSurface=true isReadyForDisplay()=true mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{87c850b PointerLocation}:
+      Surface: shown=true layer=0 alpha=1.0 rect=(0.0,0.0) 720 x 1520 transform=(1.0, 0.0, 1.0, 0.0)
+    mLastFreezeDuration=+2h10m4s945ms
+    mDrawLock=WakeLock{da36318 held=false, refCount=0}
+    isOnScreen=true
+    isVisible=true
+  Window #1 Window{b4fc29e u0 NavigationBar}:
+    mDisplayId=0 stackId=0 mSession=Session{f1aa9b1 6399:u0a10008} mClient=android.os.BinderProxy@69e5623
+    mOwnerUid=10008 mShowToOwnerOnly=false package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} ty=NAVIGATION_BAR fmt=TRANSLUCENT
+      fl=21840068 naviIconColor=0}
+    Requested w=720 h=84 mLayoutSeq=12056
+    mPolicyVisibility=false mPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mHasSurface=true isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{2ac3cda NavigationBar}:
+      Surface: shown=false layer=0 alpha=1.0 rect=(0.0,0.0) 720 x 84 transform=(1.0, 0.0, 1.0, 0.0)
+    mLastFreezeDuration=+206ms
+    mDrawLock=WakeLock{352b171 held=false, refCount=0}
+    isOnScreen=false
+    isVisible=false
+  Window #2 Window{d34cfba u0 Bouncer}:
+    mDisplayId=0 stackId=0 mSession=Session{f1aa9b1 6399:u0a10008} mClient=android.os.BinderProxy@554efdc
+    mOwnerUid=10008 mShowToOwnerOnly=false package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillx0) gr=TOP CENTER_VERTICAL sim={adjust=resize} layoutInDisplayCutoutMode=always ty=KEYGUARD_DIALOG fmt=TRANSLUCENT if=DISABLE_USER_ACTIVITY userActivityTimeout=5000
+      fl=85000548
+      vsysui=500 screenDimDuration=0
+      sfl=40000}
+    Requested w=720 h=0 mLayoutSeq=12056
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{bd1c685 Bouncer}:
+    mOrientationChanging=false configOrientationChanging=false mAppFreezing=false mReportOrientationChanged=true
+    isOnScreen=false
+    isVisible=false
+  Window #3 Window{a34de07 u0 com.samsung.android.app.cocktailbarservice/com.samsung.android.app.cocktailbarservice.CocktailBarService}:
+    mDisplayId=0 stackId=0 mSession=Session{3ccb196 10058:u0a10022} mClient=android.os.BinderProxy@b25ca2b
+    mOwnerUid=10022 mShowToOwnerOnly=false package=com.samsung.android.app.cocktailbarservice appop=NONE
+    mAttrs={(0,411)(67x292) gr=TOP RIGHT CENTER sim={adjust=nothing} layoutInDisplayCutoutMode=always ty=SEM_EDGE_OVERLAY fmt=TRANSPARENT
+      fl=1800548
+      pfl=50 naviIconColor=0}
+    Requested w=67 h=292 mLayoutSeq=12056
+    mHasSurface=true isReadyForDisplay()=true mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{3940ffc com.samsung.android.app.cocktailbarservice/com.samsung.android.app.cocktailbarservice.CocktailBarService}:
+      Surface: shown=true layer=0 alpha=1.0 rect=(0.0,0.0) 67 x 292 transform=(1.0, 0.0, 1.0, 0.0)
+    mLastFreezeDuration=+198ms
+    isOnScreen=true
+    isVisible=true
+  Window #4 Window{d253c4f u0 StatusBar}:
+    mDisplayId=0 stackId=0 mSession=Session{f1aa9b1 6399:u0a10008} mClient=android.os.BinderProxy@960f8b0
+    mOwnerUid=10008 mShowToOwnerOnly=false package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillx57) gr=TOP CENTER_VERTICAL sim={adjust=resize} layoutInDisplayCutoutMode=always ty=STATUS_BAR fmt=TRANSLUCENT
+      fl=81840048 naviIconColor=0
+      sfl=40000}
+    Requested w=720 h=57 mLayoutSeq=12056
+    mPolicyVisibility=false mPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mHasSurface=true isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{5aa48ef StatusBar}:
+       mAnimationIsEntrance=true      Surface: shown=false layer=0 alpha=1.0 rect=(0.0,0.0) 720 x 57 transform=(1.0, 0.0, 1.0, 0.0)
+    mLastFreezeDuration=+2h10m4s672ms
+    mDrawLock=WakeLock{aac2b56 held=false, refCount=736}
+    isOnScreen=false
+    isVisible=false
+  Window #5 Window{8057146 u0 InputMethod}:
+    mDisplayId=0 stackId=0 mSession=Session{5bd9b2b 8406:u0a10194} mClient=android.os.BinderProxy@52e9921
+    mOwnerUid=10194 mShowToOwnerOnly=true package=com.sec.android.inputmethod appop=NONE
+    mAttrs={(0,0)(fillxwrap) gr=BOTTOM CENTER_VERTICAL sim={adjust=pan} ty=INPUT_METHOD fmt=TRANSPARENT wanim=0x7f1300f8
+      fl=81800108 dimDuration=150 naviIconColor=0
+      sfl=800}
+    Requested w=720 h=1463 mLayoutSeq=11842
+    mIsImWindow=true mIsWallpaper=false mIsPortraitWallpaper=false mIsFloatingLayer=true mWallpaperVisible=false
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{f102fe8 InputMethod}:
+    isOnScreen=false
+    isVisible=false
+  Window #6 Window{185de40 u0 ContainerKeyguardScrim}:
+    mDisplayId=0 stackId=0 mSession=Session{619e84b 5979:1000} mClient=android.view.ViewRootImpl$W@b5708d4
+    mOwnerUid=1000 mShowToOwnerOnly=true package=android appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={state=always_hidden adjust=pan} layoutInDisplayCutoutMode=always ty=SEM_KNOX_KEYGUARD fmt=TRANSLUCENT or=SCREEN_ORIENTATION_NOSENSOR
+      fl=81000908 naviIconColor=0}
+    Requested w=0 h=0 mLayoutSeq=6
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{50d1ce ContainerKeyguardScrim}:
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    mOrientationChanging=false configOrientationChanging=true mAppFreezing=false mReportOrientationChanged=true
+    isOnScreen=false
+    isVisible=false
+  Window #7 Window{a410f4e u0 AssistPreviewPanel}:
+    mDisplayId=0 stackId=0 mSession=Session{f1aa9b1 6399:u0a10008} mClient=android.os.BinderProxy@6fe0e13
+    mOwnerUid=10008 mShowToOwnerOnly=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillx438) gr=BOTTOM START CENTER sim={state=unchanged adjust=nothing} ty=VOICE_INTERACTION_STARTING fmt=TRANSLUCENT
+      fl=1000118
+      vsysui=700 naviIconColor=0}
+    Requested w=0 h=0 mLayoutSeq=10445
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{ed086c9 AssistPreviewPanel}:
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    isOnScreen=false
+    isVisible=false
+  Window #8 Window{b22d25a u0 DockedStackDivider}:
+    mDisplayId=0 stackId=0 mSession=Session{f1aa9b1 6399:u0a10008} mClient=android.os.BinderProxy@4b1786f
+    mOwnerUid=10008 mShowToOwnerOnly=false package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(fillx84) sim={adjust=pan} layoutInDisplayCutoutMode=always ty=DOCK_DIVIDER fmt=TRANSLUCENT
+      fl=21840028
+      pfl=40
+      vsysui=700 naviIconColor=0}
+    Requested w=720 h=84 mLayoutSeq=12056
+    mPolicyVisibility=false mPolicyVisibilityAfterAnim=false mAppOpVisibility=true parentHidden=false mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{5b856d0 DockedStackDivider}:
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    isOnScreen=false
+    isVisible=false
+  Window #9 Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}:
+    mDisplayId=0 stackId=31 mSession=Session{8f793c 26551:u0a10259} mClient=android.os.BinderProxy@d9ae81a
+    mOwnerUid=10259 mShowToOwnerOnly=true package=com.gof.global appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} ty=BASE_APPLICATION fmt=TRANSLUCENT wanim=0x10302ff sysuil=true
+      fl=80810580
+      pfl=1020000
+      vsysui=1716 naviIconColor=0}
+    Requested w=720 h=1463 mLayoutSeq=12056
+    mHasSurface=true isReadyForDisplay()=true mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{36f6be6 com.gof.global/com.unity3d.player.MyMainPlayerActivity}:
+      Surface: shown=true layer=0 alpha=1.0 rect=(0.0,0.0) 720 x 1463 transform=(1.0, 0.0, 1.0, 0.0)
+    isOnScreen=true
+    isVisible=true
+  Window #10 Window{c53ca4f u0 com.samsung.android.app.spage}:
+    mDisplayId=0 stackId=0 mSession=Session{4f501f3 8899:u0a10017} mClient=android.os.BinderProxy@953fcae
+    mOwnerUid=10017 mShowToOwnerOnly=true package=com.samsung.android.app.spage appop=NONE
+    mAttrs={(0,0)(0xfill) sim={adjust=pan} ty=APPLICATION_PANEL fmt=RGBA_8888
+      fl=1000018
+      pfl=40 naviIconColor=0}
+    Requested w=0 h=0 mLayoutSeq=74
+    mParentWindow=Window{97b8151 u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity} mLayoutAttached=true
+    mPolicyVisibility=true mPolicyVisibilityAfterAnim=true mAppOpVisibility=true parentHidden=true mPermanentlyHidden=false mHiddenWhileSuspended=false mForceHideNonSystemOverlayWindow=false
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=2
+    WindowStateAnimator{232d693 }:
+      mShownAlpha=0.0 mAlpha=1.0 mLastAlpha=0.0
+    mOrientationChanging=false configOrientationChanging=true mAppFreezing=false mReportOrientationChanged=true
+    isOnScreen=false
+    isVisible=false
+  Window #11 Window{97b8151 u0 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}:
+    mDisplayId=0 stackId=0 mSession=Session{5d7d22b 7991:u0a10113} mClient=android.os.BinderProxy@2525bdb
+    mOwnerUid=10113 mShowToOwnerOnly=true package=com.sec.android.app.launcher appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=nothing} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION fmt=TRANSPARENT wanim=0x10302ec
+      fl=81910d00
+      pfl=20000
+      vsysui=700 dimDuration=0 screenDimDuration=200000 naviIconColor=0}
+    Requested w=720 h=1520 mLayoutSeq=11888
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{fba3f82 com.sec.android.app.launcher/com.sec.android.app.launcher.activities.LauncherActivity}:
+    mWallpaperX=0.5 mWallpaperY=0.5
+    isOnScreen=false
+    isVisible=false
+  Window #12 Window{5935602 u0 com.google.android.youtube/com.google.android.youtube.app.honeycomb.Shell$HomeActivity}:
+    mDisplayId=0 stackId=24 mSession=Session{1fbfe95 7121:u0a10160} mClient=android.os.BinderProxy@2fe6b4d
+    mOwnerUid=10160 mShowToOwnerOnly=true package=com.google.android.youtube appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=pan} layoutInDisplayCutoutMode=always ty=BASE_APPLICATION fmt=TRANSLUCENT wanim=0x10302ff sysuil=true
+      fl=81810100
+      pfl=20000
+      vsysui=1700 naviIconColor=0}
+    Requested w=720 h=1520 mLayoutSeq=10981
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{5a5b70c com.google.android.youtube/com.google.android.youtube.app.honeycomb.Shell$HomeActivity}:
+    mLastFreezeDuration=+244ms
+    isOnScreen=false
+    isVisible=false
+  Window #13 Window{1e57b1a u0 com.threefiveeight.adda/com.threefiveeight.adda.MainActivity}:
+    mDisplayId=0 stackId=25 mSession=Session{c086209 14569:u0a10370} mClient=android.os.BinderProxy@5cc15c5
+    mOwnerUid=10370 mShowToOwnerOnly=true package=com.threefiveeight.adda appop=NONE
+    mAttrs={(0,0)(fillxfill) sim={adjust=resize} ty=BASE_APPLICATION fmt=TRANSLUCENT wanim=0x1030001
+      fl=81810100
+      pfl=20000
+      vsysui=2500 naviIconColor=0}
+    Requested w=720 h=1520 mLayoutSeq=9570
+    mHasSurface=false isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{3d87504 com.threefiveeight.adda/com.threefiveeight.adda.MainActivity}:
+    mOrientationChanging=false configOrientationChanging=false mAppFreezing=false mReportOrientationChanged=true
+    isOnScreen=false
+    isVisible=false
+  Window #14 Window{3f9a203 u0 com.android.systemui.ImageWallpaper}:
+    mDisplayId=0 stackId=0 mSession=Session{f1aa9b1 6399:u0a10008} mClient=android.os.BinderProxy@3d852b2
+    mOwnerUid=10008 mShowToOwnerOnly=true package=com.android.systemui appop=NONE
+    mAttrs={(0,0)(720x1520) gr=TOP START CENTER layoutInDisplayCutoutMode=always ty=WALLPAPER fmt=RGBX_8888 wanim=0x1030310
+      fl=10318
+      pfl=4 naviIconColor=0
+      sfl=8}
+    Requested w=720 h=1520 mLayoutSeq=11896
+    mIsImWindow=false mIsWallpaper=true mIsPortraitWallpaper=true mIsFloatingLayer=true mWallpaperVisible=false
+    mHasSurface=true isReadyForDisplay()=false mWindowRemovalAllowed=false
+    mLastLayer=0
+    WindowStateAnimator{a310acd com.android.systemui.ImageWallpaper}:
+       mAnimationIsEntrance=true      Surface: shown=false layer=0 alpha=1.0 rect=(0.0,0.0) 720 x 1520 transform=(1.0, 0.0, 1.0, 0.0)
+      mGlobalScale=1.0 mDsDx=1.0 mDtDx=0.0 mDtDy=0.0 mDsDy=1.0
+    mWallpaperX=0.5 mWallpaperY=0.5
+    isOnScreen=true
+    isVisible=false
+
+  Clients waiting for these windows to be drawn:
+  Waiting #0 Window{9c1461 u0 SnapshotStartingWindow for taskId=20892}
+  mGlobalConfiguration={1.0 404mcc20mnc [en_GB] ldltr sw411dp w411dp h788dp 280dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 720, 1379) mAppBounds=Rect(0, 57 - 720, 1436) mWindowingMode=fullscreen mActivityType=undefined} s.38 mkbd/h desktop/d bts=0 themeSeq=0 ff=0 bf=-1 ?dc}
+  mHasPermanentDpad=false
+  mCurrentFocus=Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}
+  mFocusedApp=AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}}
+  mInputMethodOrderedTarget=Window{185de40 u0 ContainerKeyguardScrim}
+  mInTouchMode=true
+  mLastDisplayFreezeDuration=+529ms due to Window{5c61fb9 u0 android}
+  mLastWakeLockHoldingWindow=Window{9c1461 u0 SnapshotStartingWindow for taskId=20892} mLastWakeLockObscuringWindow=null
+  InputConsumers:
+    name=pip_input_consumer pid=6399 user=UserHandle{0}
+  InputFocusCandidates: size=1
+    {displayId=0, win=Window{bc8ef4b u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity}}
+  SnapshotCache
+    Entry taskId=20896
+      topApp=AppWindowToken{3e98b7c token=Token{f42826f ActivityRecord{3a8014e u0 com.threefiveeight.adda/.MainActivity t20896}}}
+      snapshot=TaskSnapshot{mSnapshot=android.graphics.GraphicBuffer@b06d7d7 (720x1520) mOrientation=1 mContentInsets=[0,57][0,84] mReducedResolution=false mScale=1.0 mIsRealSnapshot=true mWindowingMode=1 mSystemUiVisibility=9472 mIsTranslucent=true mIsTopBaseApplicationWindow=false
+    Entry taskId=20892
+      topApp=AppWindowToken{83f9b90 token=Token{c6d3653 ActivityRecord{674642 u0 com.gof.global/com.unity3d.player.MyMainPlayerActivity t20892}}}
+      snapshot=TaskSnapshot{mSnapshot=android.graphics.GraphicBuffer@ef798c4 (720x1520) mOrientation=1 mContentInsets=[0,57][0,84] mReducedResolution=false mScale=1.0 mIsRealSnapshot=true mWindowingMode=1 mSystemUiVisibility=5910 mIsTranslucent=true mIsTopBaseApplicationWindow=true
+    Entry taskId=20890
+      topApp=AppWindowToken{28969eb token=Token{5bc293a ActivityRecord{762865 u0 com.google.android.youtube/.app.honeycomb.Shell$HomeActivity t20890}}}
+      snapshot=TaskSnapshot{mSnapshot=android.graphics.GraphicBuffer@b8ff3ad (720x1520) mOrientation=1 mContentInsets=[0,57][0,84] mReducedResolution=false mScale=1.0 mIsRealSnapshot=true mWindowingMode=1 mSystemUiVisibility=5888 mIsTranslucent=true mIsTopBaseApplicationWindow=true
+  MaxSnapshotCache=30
+WINDOW MANAGER HISTORY 
