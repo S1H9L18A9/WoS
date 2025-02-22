@@ -20,14 +20,15 @@ class AndroidTouchControl:
         self.device_arch = None
         self.minitouch_process = None
         self.socket = None
-        self.max_x = None
-        self.max_y = None
         self.pressure_max = None
+        self.max_x, self.max_y = self._get_device_dimensions()
+        # if self._is_emulator():
+            
 
     @classmethod
     def find_devices(cls):
         result = subprocess.run([ADB_PATH,'devices'],capture_output=True)
-        pdb.set_trace()
+        # pdb.set_trace()
         if result.stdout:
             if (n:=result.stdout.decode().splitlines()[1:-1]):
                 return [i.split() for i in n]
@@ -36,7 +37,7 @@ class AndroidTouchControl:
         else:
             return result
     @classmethod
-    def connect_to_first_device(cls):
+    def connect_to_first_device(cls, verify=True):
         result = AndroidTouchControl.find_devices()
         if type(result) is str:
             print(result)
@@ -50,19 +51,21 @@ class AndroidTouchControl:
         for device in result:
             if device[1].lower() =='device':
                 x = AndroidTouchControl(device[0])
-                print(f'Testing device {device[0]}')
-                print('Attempting to swipe on device, please open something that will let you verify the swipe')
-                input('Press enter to initiate swipe...')
-                x.swipe(200,900,200,300)
-                check = input('Did it swipe? Press y for yes:')
-                if check.lower().startswith('y'):
-                    return x
+                if verify:
+                    print(f'Testing device {device[0]}')
+                    print('Attempting to swipe on device, please open something that will let you verify the swipe')
+                    input('Press enter to initiate swipe...')
+                    x.swipe(200,900,200,300)
+                    check = input('Did it swipe? Press y for yes:')
+                    if check.lower().startswith('y'):
+                        return x
+                return x           #returning just x here, needs better solution. 
         print('Looks like could not connect')
         return None
 
     def _run_adb(self, *args):
         """Adds the 'adb' and the device id by default, add other stuff"""
-        cmd = [f'"{self.adb_path}"']
+        cmd = [self.adb_path]
         if self.device_id:
             cmd.extend(['-s', self.device_id])
         cmd.extend(args)
@@ -86,8 +89,8 @@ class AndroidTouchControl:
         img = cv2.imread(output_path)
         if img is not None:
             height, width = img.shape[:2]
-            if (width, height) != (self.target_width, self.target_height):
-                raise Exception(f"Screenshot resolution mismatch. Expected {self.target_width}x{self.target_height}, got {width}x{height}")
+            if (width, height) != (self.max_x, self.max_y):
+                raise Exception(f"Screenshot resolution mismatch. Expected {self.max_x}x{self.max_y}, got {width}x{height}")
         
         return output_path
 
@@ -106,7 +109,7 @@ class AndroidTouchControl:
         
         # Verify template resolution is compatible
         template_height, template_width = template.shape[:2]
-        if template_width > self.target_width or template_height > self.target_height:
+        if template_width > self.max_x or template_height > self.max_y:
             raise Exception(f"Template image is larger than target resolution: {template_width}x{template_height}")
 
         # Perform template matching
@@ -122,16 +125,16 @@ class AndroidTouchControl:
 
     def tap(self, x, y):
         """Tap at specific coordinates"""
-        if 0 <= x <= self.target_width and 0 <= y <= self.target_height:
+        if 0 <= x <= self.max_x and 0 <= y <= self.max_y:
             self._run_adb('shell', 'input', 'tap', str(x), str(y))
         else:
             raise Exception(f"Tap coordinates ({x}, {y}) out of bounds for resolution {self.target_width}x{self.target_height}")
     def swipe(self, x1, y1, x2, y2):
         """Tap at specific coordinates"""
-        if 0 <= x1 <= self.target_width and 0 <= y1 <= self.target_height:
+        if 0 <= x1 <= self.max_x and 0 <= y1 <= self.max_y:
             self._run_adb('shell', 'input', 'swipe', str(x1), str(y1),str(x2), str(y2))
         else:
-            raise Exception(f"Tap coordinates ({x1}, {y1}) out of bounds for resolution {self.target_width}x{self.target_height}")
+            raise Exception(f"Tap coordinates ({x1}, {y1}) out of bounds for resolution {self.max_x}x{self.max_y}")
 
     def click_on_image(self, template_path, max_attempts=3, threshold=0.8):
         """
@@ -168,7 +171,9 @@ class AndroidTouchControl:
             text=True
         )
         # Parse "Physical size: 1080x2400" format
-        size = result.stdout.strip().split(': ')[1].split('x')
+        # size = result.stdout.strip().split(': ')[1].split('x')
+        # adb gives me Override size and physical size. So as o comes before p, I sort and take the first one. This will break
+        size = sorted(result.stdout.splitlines())[0].split(': ')[1].split('x')
         return int(size[0]), int(size[1])
 
     def _initialize_minitouch_params(self, socket_connection):

@@ -31,14 +31,17 @@ def main():
     pdb.set_trace()
     
     # AndroidTouchControl.find_devices()
-    android = AndroidTouchControl.connect_to_first_device()
+    android = AndroidTouchControl.connect_to_first_device(verify=False)
 
     # android.get_device_architecture()  # Automatically detects device architecture
     # android.push_minitouch()  # Pushes the appropriate binary to the device
     # android.start_minitouch()  # Starts the minitouch service
     logging.info('Starting WoS')
 # adb shell monkey -p com.gof.global -c android.intent.category.LAUNCHER 1
-    # android._run_adb('shell','monkey','-p','com.gof.global','-c','android.intent.category.LAUNCHER','1')
+    android._run_adb('shell','monkey','-p','com.gof.global','-c','android.intent.category.LAUNCHER','1')
+    # android.tap(700,100)
+    android.click_on_image(os.path.join((os.path.abspath('')),'template_images','Help.png'))
+    logging.info('Bruh we done')
 
 if __name__ == '__main__':
     main()
