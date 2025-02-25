@@ -40,6 +40,7 @@ def main():
 # adb shell monkey -p com.gof.global -c android.intent.category.LAUNCHER 1
     android._run_adb('shell','monkey','-p','com.gof.global','-c','android.intent.category.LAUNCHER','1')
     # android.tap(700,100)
+    
     android.click_on_image(os.path.join((os.path.abspath('')),'template_images','Help.png'))
     logging.info('Bruh we done')
 
