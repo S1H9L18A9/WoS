@@ -4,9 +4,40 @@ import time
 import socket
 import os
 from typing import Tuple
-
+import warnings
+#warnings.filterwarnings("ignore", message=".*sBIT.*") #I don't know how to fix this, there is no way I click 
+#warnings.filterwarnings('ignore', category=UserWarning)#images again. Will worry later
 import cv2
 # adb shell monkey -p com.gof.global -c android.intent.category.LAUNCHER 1
+
+from contextlib import contextmanager
+import sys
+import io
+
+#@contextmanager
+#def suppress_stderr():
+#    stderr = sys.stderr
+#    stderr_redirector = io.StringIO()
+#    sys.stderr = stderr_redirector
+#    try:
+#        yield stderr_redirector
+#    finally:
+#        sys.stderr = stderr
+@contextmanager
+def suppress_stderr():
+    # Save the current stderr
+    old_stderr = sys.stderr
+    # Open null device
+    null = os.open(os.devnull, os.O_WRONLY)
+    # Replace stderr with null device
+    os.dup2(null, sys.stderr.fileno())
+    
+    try:
+        yield
+    finally:
+        # Restore stderr
+        sys.stderr = old_stderr
+        os.close(null)
 
 ADB_PATH = os.path.join(os.path.abspath(''),     #Assuming scrcpy will be in that path, convenient. Maybe should
     'Android_control',
@@ -27,6 +58,8 @@ class AndroidTouchControl:
 
     @classmethod
     def find_devices(cls):
+        start = subprocess.run ([ADB_PATH,'start-server'],capture_output=True)
+        time.sleep(10)
         result = subprocess.run([ADB_PATH,'devices'],capture_output=True)
         # pdb.set_trace()
         if result.stdout:
@@ -69,7 +102,7 @@ class AndroidTouchControl:
         if self.device_id:
             cmd.extend(['-s', self.device_id])
         cmd.extend(args)
-        print(cmd)
+        #print(cmd)
         return subprocess.run(cmd, capture_output=True)
     def _is_emulator(self):
         """Check if the device is an emulator"""
@@ -105,7 +138,8 @@ class AndroidTouchControl:
 
         # Read images
         screenshot = cv2.imread(screenshot_path)
-        template = cv2.imread(template_path)
+        with suppress_stderr():                                         #Till I find a better fix
+            template = cv2.imread(template_path)
         
         # Verify template resolution is compatible
         template_height, template_width = template.shape[:2]
