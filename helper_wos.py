@@ -38,6 +38,8 @@ def main():
     # android.start_minitouch()  # Starts the minitouch service
     logging.info('Starting WoS')
 # adb shell monkey -p com.gof.global -c android.intent.category.LAUNCHER 1
+# adb shell am force-stop com.gof.global
+
     android._run_adb('shell','monkey','-p','com.gof.global','-c','android.intent.category.LAUNCHER','1')
     # android.tap(670,70)
     logging.info('Waiting for game to load up')
