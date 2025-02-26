@@ -68,7 +68,7 @@ def main():
     logging.info('Helping perpetually')
     while True:
         if  android.click_on_image(os.path.join((os.path.abspath('')),'template_images','Help.png')):
-            if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Back btn.png'),
+            if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Back Btn.png'),
                            timeout=3)):
                 android.tap(*m)
     logging.info('Bruh we done')
