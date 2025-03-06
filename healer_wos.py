@@ -68,7 +68,7 @@ def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True):
     if (n:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Confirm Button.png'),
                            timeout=15)):
         android.tap(*n)
-    elif (n:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','World.png'),
+    elif (n:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Exploration.png'),
                            timeout=5)):
         # android.tap(*n)
         pass
@@ -80,11 +80,11 @@ def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True):
                            timeout=3)):
                 android.tap(*m)
                 break
-            elif (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','World.png'),
+            elif (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Exploration.png'),
                            timeout=3)):
                 break
         else:
-            if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','World.png'),
+            if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Exploration.png'),
                            timeout=3)):
                 logging.info('Finally in game....I think')
             else:
