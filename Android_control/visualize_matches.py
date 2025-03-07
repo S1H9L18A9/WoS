@@ -3,7 +3,8 @@ import cv2
 import numpy as np
 from pathlib import Path
 
-def find_images_in_screenshot(seed_folder, screenshot_paths, threshold=0.8):
+def find_images_in_screenshot(seed_folder, screenshot_paths, threshold = 0.8, filter = False, 
+                              min_distance = 20):
     """
     Find all occurrences of seed images in the given screenshots.
     
@@ -76,6 +77,8 @@ def find_images_in_screenshot(seed_folder, screenshot_paths, threshold=0.8):
             
             # If we found matches, add to results
             if matches:
+                if filter:
+                    matches = filter_list_of(matches, min_distance)
                 screenshot_results.extend(matches)
         
         # Sort results by probability (highest first)
@@ -84,8 +87,36 @@ def find_images_in_screenshot(seed_folder, screenshot_paths, threshold=0.8):
         # Add to overall results
         results[screenshot_path] = screenshot_results
         print(f"Found {len(screenshot_results)} matches in {screenshot_path}")
-    
     return results
+
+
+def filter_list_of(matches, min_distance,):
+        # Apply non-maximum suppression
+    filtered_matches = []
+    
+    while matches:
+        # Take the match with highest probability
+        best_match = matches.pop(0)
+        filtered_matches.append(best_match)
+        
+        # Filter out all matches that are too close to this one
+        remaining_matches = []
+        for match in matches:
+            # Skip if it's the same seed image and too close to the best match
+            if match['seed_path'] == best_match['seed_path']:
+                x1, y1 = best_match['position']
+                x2, y2 = match['position']
+                distance = np.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+                
+                if distance < min_distance:
+                    continue
+            
+            remaining_matches.append(match)
+        
+        matches = remaining_matches
+    
+    return filtered_matches
+
 
 def visualize_matches(screenshot_path, matches, output_path=None):
     """
@@ -131,12 +162,12 @@ def visualize_matches(screenshot_path, matches, output_path=None):
 
 def main():
     # Configuration
-    seed_folder = "template_images"
-    screenshots = ["screen_help_avail.png", "screen_heal_click.png"]
-    threshold = 0.8
+    seed_folder = r"C:\Users\sahilr\Downloads\Whiteout Survival\Whiteout Survival\image\Intel"
+    screenshots = ["..\\screen_intel.png", "..\\screen_heal_click.png"]
+    threshold = 0.9
     
     # Find matches
-    results = find_images_in_screenshot(seed_folder, screenshots, threshold)
+    results = find_images_in_screenshot(seed_folder, screenshots, threshold, filter= True)
     
     # Generate visualizations
     for screenshot_path, matches in results.items():
