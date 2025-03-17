@@ -141,18 +141,20 @@ def main():
         else:
             coords = WoS_locations['end_swipe']['x2'], WoS_locations['end_swipe']['y2'], WoS_locations['end_swipe']['x1'], WoS_locations['end_swipe']['y1']
             time.sleep(0.3)
-            android.swipe(*coords)
+            # android.swipe(*coords)
     logging.info('Bruh we done')
 
-def healer(android, number, m, setup_numbers = False):
+def healer(android:AndroidTouchControl, number, m, setup_numbers = False):
     logging.info('Need to heal troops')
     android.tap(*m)
 
     if setup_numbers:
         if (n:=android.wait_for_image('template_images\\Quick Select.png')):
-            for i in range(3):
+            for i in range(5):
+                if android.wait_for_image('template_images\\Select a target.png',1):
+                    break
                 android.tap(*n)
-                time.sleep(0.6)
+                # time.sleep(0.6)
             coords = WoS_locations['heal_1']['x'],WoS_locations['heal_1']['y']
             android.tap(*coords)
             time.sleep(1)
