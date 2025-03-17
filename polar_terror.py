@@ -29,6 +29,7 @@ static_points = {
     'points':{
         'recorded_at_720x1520':{
             'recorded': (720,1520),
+            'dpi':420,
             'back': (45,100),
             
         }
@@ -40,12 +41,26 @@ static_paths={
         'likely': path_for(['template_images','deploy_likely.png']),
         'anywhere_skip': path_for(['template_images','Tap Anywhere.png']),
         'deploy': path_for(['template_images','Deploy.png']),
+        
         'intel': path_for(['template_images','Intel']),
         'rescue': path_for(['template_images','Intel','Intel Rescue.png']),
         'explore': path_for(['template_images','Intel','Intel Explore.png']),
         'view': path_for(['template_images','Intel','Intel View.png']),
         'fight': path_for(['template_images','Intel','Squad Fight.png']),
         'fight_skip': path_for(['template_images','Intel','Squad Tap Anywhere to Exit.png']),
+        
+        'search': path_for(['template_images','Search']),
+        'magnifyer': path_for(['template_images','Search','Magnifyer New.png']),
+        'polar': path_for(['template_images','Search','Polar Terror.png']),
+        'search_btn': path_for(['template_images','Search','Search.png']),
+        'rally': path_for(['template_images','Search','Rally.png']),
+        'hold_rally': path_for(['template_images','Search','Hold Rally.png']),
+
+        'hero': path_for(['template_images','Hero List']),
+        'hero_infantry': path_for(['template_images','Hero List','Infantry']),
+        'hero_lancer': path_for(['template_images','Hero List','Lancer']),
+        'hero_marksman': path_for(['template_images','Hero List','Marksman']),
+        'gina': path_for(['template_images','Hero List','Marksman','Gina.png']),
     }
 
 def main():
@@ -77,11 +92,35 @@ def main():
 
     logging.info('Helping perpetually')
     while True:
+        # pdb.set_trace()
+        # hero_selector(android)
         tuna_eater(android)
+        # hunter(android)
         for i in range(30):
             helper(android)
             time.sleep(1)
     logging.info('Bruh we done')
+
+
+def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokhan = False, select_meat = False, select_wood = False , select_iron = False):
+    current_heroes = {}
+    for type in ('infantry','lancer','marksman'):
+        results = find_images_in_screenshot(static_paths[f'hero_{type}'],[android.take_screenshot()],0.9,True)['screen.png']
+        if len(results):
+            current_heroes[type] = results
+    if select_gina:
+        if 'gina' not in current_heroes['marksman'][0]['seed_path'].lower():
+            android.tap(*current_heroes['marksman'][0]['position'])
+            time.sleep(1)
+            android.tap(510,1150)
+            time.sleep(1)
+            android.click_on_image(static_paths['gina'])
+            android.tap(510,1150)
+            time.sleep(1)
+            android.tap(550,1450)
+            time.sleep(0.5)
+        return
+
 
 def tuna_eater(android):
     if (intel_button:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Intel Button.png'),
@@ -94,7 +133,7 @@ def tuna_eater(android):
         results = results['screen.png']
         #if results are 0, need to go to polar terror section
         if len(results):
-            pdb.set_trace()
+            # pdb.set_trace()
             results.sort(key=lambda x: x['probability'], reverse = True)
             # results.sort(key=lambda x: x['seed_path'])
             backtrack_index = 0
@@ -128,6 +167,7 @@ def tuna_eater(android):
                         time.sleep(0.5)
                         if android.wait_for_image(static_paths['likely'], 5):
                             logging.info('Deployment likely to succeed')
+                            hero_selector(android,select_gina=True)
                             #possibly add code here for hero selection
                             android.click_on_image(static_paths['deploy'])
                             #need to write code here for when deployment fails, due to no stamina maybe
@@ -150,7 +190,8 @@ def tuna_eater(android):
                         print('Program has crashed, it should not be here')
                         logging.info('Program should not be here. Or it is a manifestation on laziness on the part of the coder')
                         logging.info('Edge cases are hard')
-                        pdb.set_trace()
+                        break
+                        # pdb.set_trace()
 
                 # if 'hunting' in intel['seed_path'].lower():
                 #     time.sleep(0.5)
@@ -183,6 +224,7 @@ def tuna_eater(android):
                 #     android.tap(*intel_button)
                 #     time.sleep(1)
             else:
+                pdb.set_trace()
                 logging.info('Looks like intel is done, time for polar terror')
                 android.tap(*static_points['points']['recorded_at_720x1520']['back'])
             
@@ -191,11 +233,48 @@ def tuna_eater(android):
         #540, 1460 to deploy, need to check if I still have tuna
         else:
             logging.info('No intel found, going for polar')
+            android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+            hunter(android)
+    else:
+        logging.info('Cannot find the Intel button, maybe I am not on the World page')
 
-def helper(android):
+
+def hunter(android:AndroidTouchControl|None,number = 4):
+    pdb.set_trace()
+    if (m:=android.wait_for_image(static_paths['magnifyer']),2):
+        android.tap(*m)
+        time.sleep(0.5)
+        if (m:=android.wait_for_image(static_paths['polar']),2):
+            android.tap(*m)
+        else:
+            # points
+            android.swipe(250,1150,600,1150)
+            android.click_on_image(static_paths['polar'])
+            logging.info('Done man mb')
+        android.tap(600,1300)
+        android._run_adb('shell','input','keyevent','67')
+        android._run_adb('shell','input','keyevent','67')
+        android._run_adb('shell','input','text',f'{number}'[0])
+        android._run_adb('shell','input','text',f'{number}'[1:])
+        android._run_adb('shell','input','keyevent','66')
+        android.click_on_image(static_paths['search_btn'])
+        time.sleep(1)
+        android.click_on_image(static_paths['rally']) #convert to wait
+        time.sleep(1)
+        android.click_on_image(static_paths['hold_rally'])
+        #probably add the hero selection here
+        hero_selector(android,select_gina=True)
+        
+        android.click_on_image(static_paths['deploy'])
+
+    else:
+        logging.info('Cannot find the polar thing')
+
+
+def helper(android:AndroidTouchControl|None, default_timeout = 2):
     if  android.click_on_image(os.path.join((os.path.abspath('')),'template_images','Help.png')):
         if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Back Btn.png'),
-                           timeout=3)):
+                           timeout = default_timeout)):
             android.tap(*m)
 
 def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True):
@@ -212,7 +291,7 @@ def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True):
     # android.tap(670,70)
     logging.info('Waiting for game to load up')
     if (n:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Confirm Button.png'),
-                           timeout=15)):
+                           timeout=25)):
         android.tap(*n)
     elif (n:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Exploration.png'),
                            timeout=5)):
