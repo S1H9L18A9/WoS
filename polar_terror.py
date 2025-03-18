@@ -1,4 +1,5 @@
 # from ..ChefLive.minitouch import AndroidTouchControl
+from datetime import datetime
 import pdb
 from Android_control.minitouch import AndroidTouchControl
 from Android_control.visualize_matches import find_images_in_screenshot
@@ -88,17 +89,34 @@ def main():
                            timeout=5)):
         logging.info('Not on World map, going there')
         android.tap(*m)
-
+    func_dict = {
+        'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':None},
+        'tuna_eater':{'func':tuna_eater, 'args':[android],'kwargs':{},'cooldown':200,'last_run':None},
+        # 'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':0},
+    }
 
     logging.info('Helping perpetually')
     while True:
         # pdb.set_trace()
         # hero_selector(android)
-        tuna_eater(android)
+        # tuna_eater(android)
         # hunter(android)
-        for i in range(30):
-            helper(android)
-            time.sleep(1)
+        for task in func_dict.items():
+            if (not task[1]['last_run']) or ((datetime.now() - task[1]['last_run']).total_seconds() > task[1]['cooldown']):
+                logging.info(f'Doing task: {task[0]}')
+                try:
+                    result = task[1]['func'](*task[1]['args'],**task[1]['kwargs'])
+                    if  type(result) is tuple:
+                        task[1].update(result[1])
+                    task[1]['last_run'] = datetime.now()
+                except Exception as e:
+                    logging.info(f'Error on {task[0]} : {e}')
+            else:
+                logging.info(f'Skipping {task[0]}')
+            
+        # for i in range(30):
+            # helper(android)
+            # time.sleep(1)
     logging.info('Bruh we done')
 
 
@@ -161,7 +179,7 @@ def tuna_eater(android):
                                 time.sleep(0.5)
                                 continue
                         logging.info('Something went wrong, aborting')
-                        break
+                        return 1
                     elif (m:=android.wait_for_image(static_paths['attack'],2)):
                         android.tap(*m)
                         time.sleep(0.5)
@@ -175,7 +193,8 @@ def tuna_eater(android):
                             #Reset back to intel page
                             # android.click_on_image(static_paths['intel_button'])
                             time.sleep(0.5)
-                            break
+                            # break
+                            return 0
                 elif (m:=android.wait_for_image(static_paths['anywhere_skip'],2)):
                     logging.info('A completed intel, claiming rewards and keep going')
                     android.tap(*m)
@@ -190,7 +209,8 @@ def tuna_eater(android):
                         print('Program has crashed, it should not be here')
                         logging.info('Program should not be here. Or it is a manifestation on laziness on the part of the coder')
                         logging.info('Edge cases are hard')
-                        break
+                        # break
+                        return 1
                         # pdb.set_trace()
 
                 # if 'hunting' in intel['seed_path'].lower():
@@ -224,9 +244,11 @@ def tuna_eater(android):
                 #     android.tap(*intel_button)
                 #     time.sleep(1)
             else:
-                pdb.set_trace()
+                # pdb.set_trace()
                 logging.info('Looks like intel is done, time for polar terror')
                 android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+                hunter(android)
+                return 0#, {'func':hunter}
             
         #375, 1050 to click view - image name View.png
         #360, 800 to click attack, save
@@ -234,9 +256,11 @@ def tuna_eater(android):
         else:
             logging.info('No intel found, going for polar')
             android.tap(*static_points['points']['recorded_at_720x1520']['back'])
-            hunter(android)
+            return 0, {'func':hunter, 'cooldown':360}
+            # hunter(android)
     else:
         logging.info('Cannot find the Intel button, maybe I am not on the World page')
+        return 1
 
 
 def hunter(android:AndroidTouchControl|None,number = 4):
@@ -259,13 +283,15 @@ def hunter(android:AndroidTouchControl|None,number = 4):
         android._run_adb('shell','input','keyevent','66')
         android.click_on_image(static_paths['search_btn'])
         time.sleep(1)
-        android.click_on_image(static_paths['rally']) #convert to wait
+        android.click_on_image(static_paths['rally']) #convert to wait if statement coz maybe you don't find any 
         time.sleep(1)
         android.click_on_image(static_paths['hold_rally'])
         #probably add the hero selection here
         hero_selector(android,select_gina=True)
         
         android.click_on_image(static_paths['deploy'])
+        #wait for exploration here coz there maybe someone else is marching towards the target. 
+        # Wait 10 sec, then back button till exploration visible
 
     else:
         logging.info('Cannot find the polar thing')
@@ -276,6 +302,7 @@ def helper(android:AndroidTouchControl|None, default_timeout = 2):
         if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Back Btn.png'),
                            timeout = default_timeout)):
             android.tap(*m)
+    return 0
 
 def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True):
     if android is None:
