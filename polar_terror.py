@@ -37,6 +37,7 @@ static_points = {
     },}
 static_paths={
         'world': path_for(['template_images','World.png']),
+        'exploration': path_for(['template_images','Exploration.png']),
         'intel_button': path_for(['template_images','Intel Button.png']),
         'attack': path_for(['template_images','Attack.png']),
         'likely': path_for(['template_images','deploy_likely.png']),
@@ -120,7 +121,7 @@ def main():
     logging.info('Bruh we done')
 
 
-def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokhan = False, select_meat = False, select_wood = False , select_iron = False):
+def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokhan = False, select_meat = False, select_wood = False , select_iron = False,**kwargs):
     current_heroes = {}
     for type in ('infantry','lancer','marksman'):
         results = find_images_in_screenshot(static_paths[f'hero_{type}'],[android.take_screenshot()],0.9,True)['screen.png']
@@ -140,7 +141,7 @@ def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokha
         return
 
 
-def tuna_eater(android):
+def tuna_eater(android, **kwargs):
     if (intel_button:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Intel Button.png'),
                            timeout=2)):
         logging.info('found intel, going there')
@@ -244,7 +245,7 @@ def tuna_eater(android):
                 #     android.tap(*intel_button)
                 #     time.sleep(1)
             else:
-                # pdb.set_trace()
+                pdb.set_trace()
                 logging.info('Looks like intel is done, time for polar terror')
                 android.tap(*static_points['points']['recorded_at_720x1520']['back'])
                 hunter(android)
@@ -254,16 +255,21 @@ def tuna_eater(android):
         #360, 800 to click attack, save
         #540, 1460 to deploy, need to check if I still have tuna
         else:
+            pdb.set_trace()
             logging.info('No intel found, going for polar')
             android.tap(*static_points['points']['recorded_at_720x1520']['back'])
-            return 0, {'func':hunter, 'cooldown':360}
-            # hunter(android)
+            if (m:=kwargs.get('nothing_found_count')):
+                if m >3: # type: ignore
+                    return 0, {'func':hunter, 'cooldown':360}
+                return 0,{'kwargs':{'nothing_found_count':m+1}} # type: ignore
+            else:
+                return 0, {'kwargs':{'nothing_found_count':1}}
     else:
         logging.info('Cannot find the Intel button, maybe I am not on the World page')
         return 1
 
 
-def hunter(android:AndroidTouchControl|None,number = 4):
+def hunter(android:AndroidTouchControl|None,number = 4, **kwargs):
     pdb.set_trace()
     if (m:=android.wait_for_image(static_paths['magnifyer']),2):
         android.tap(*m)
@@ -283,21 +289,41 @@ def hunter(android:AndroidTouchControl|None,number = 4):
         android._run_adb('shell','input','keyevent','66')
         android.click_on_image(static_paths['search_btn'])
         time.sleep(1)
-        android.click_on_image(static_paths['rally']) #convert to wait if statement coz maybe you don't find any 
-        time.sleep(1)
-        android.click_on_image(static_paths['hold_rally'])
-        #probably add the hero selection here
-        hero_selector(android,select_gina=True)
-        
-        android.click_on_image(static_paths['deploy'])
-        #wait for exploration here coz there maybe someone else is marching towards the target. 
-        # Wait 10 sec, then back button till exploration visible
+        if (m:=android.wait_for_image(static_paths['rally'],timeout=10)):#convert to wait if statement coz maybe you don't find any 
+            android.tap(*m)
+            time.sleep(1)
+            #add rally time stuff here, I guess
+            android.click_on_image(static_paths['hold_rally'])
+            #probably add the hero selection here
+            hero_selector(android,select_gina=True)
+            
+            if (m:=android.wait_for_image(static_paths['deploy'],timeout=10)):
+            #wait for exploration here coz there maybe someone else is marching towards the target. 
+            # Wait 10 sec, then back button till exploration visible
+                android.tap(*m)
+            else:
+                logging.info('Looks like there is something else, like another rally marching towards the target')
+                logging.info('Trying to go back to world page')
+                for i in range(5):
+                    android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+                    # time.sleep(1)
+                    if android.wait_for_image(static_paths['exploration'],timeout=3):
+                        break
+                else:
+                    logging.info('Need to reset I guess')
+                    skip_shit_and_start_game(android,shutdown=True)
+                    if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','World.png'),
+                                        timeout=5)):
+                        logging.info('Not on World map, going there')
+                        android.tap(*m)
+        else:
+            logging.info('Looks like no polar terror found, skipping')
 
     else:
         logging.info('Cannot find the polar thing')
 
 
-def helper(android:AndroidTouchControl|None, default_timeout = 2):
+def helper(android:AndroidTouchControl|None, default_timeout = 2, **kwargs):
     if  android.click_on_image(os.path.join((os.path.abspath('')),'template_images','Help.png')):
         if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Back Btn.png'),
                            timeout = default_timeout)):
