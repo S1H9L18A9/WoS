@@ -104,7 +104,8 @@ def main():
         # hunter(android)
         for task in func_dict.items():
             if (not task[1]['last_run']) or ((datetime.now() - task[1]['last_run']).total_seconds() > task[1]['cooldown']):
-                logging.info(f'Doing task: {task[0]}')
+                if not task[0].lower().startswith('help'):
+                    logging.info(f'Doing task: {task[0]}')
                 try:
                     result = task[1]['func'](*task[1]['args'],**task[1]['kwargs'])
                     if  type(result) is tuple:
@@ -113,7 +114,8 @@ def main():
                 except Exception as e:
                     logging.info(f'Error on {task[0]} : {e}')
             else:
-                logging.info(f'Skipping {task[0]}')
+                # logging.info(f'Skipping {task[0]}')
+                pass
             
         # for i in range(30):
             # helper(android)
@@ -327,6 +329,7 @@ def helper(android:AndroidTouchControl|None, default_timeout = 2, **kwargs):
     if  android.click_on_image(os.path.join((os.path.abspath('')),'template_images','Help.png')):
         if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Back Btn.png'),
                            timeout = default_timeout)):
+            print(f'back button: {m}')
             android.tap(*m)
     return 0
 
