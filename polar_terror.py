@@ -63,6 +63,10 @@ static_paths={
         'hero_lancer': path_for(['template_images','Hero List','Lancer']),
         'hero_marksman': path_for(['template_images','Hero List','Marksman']),
         'gina': path_for(['template_images','Hero List','Marksman','Gina.png']),
+        
+        'mer_folder': path_for(['template_images','Mercenary Prestige']),
+        'merc_icon': path_for(['template_images','Mercenary Prestige','Merc Prestige Quick Btn.png']),
+        'merc_icon2': path_for(['template_images','Mercenary Prestige','Quick.png']),
     }
 
 def main():
@@ -86,13 +90,10 @@ def main():
     logging.info('Ideally now I am in game')
     # pdb.set_trace()
     #switch to the world map
-    if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','World.png'),
-                           timeout=5)):
-        logging.info('Not on World map, going there')
-        android.tap(*m)
     func_dict = {
+        'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},
         'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':None},
-        'tuna_eater':{'func':tuna_eater, 'args':[android],'kwargs':{},'cooldown':200,'last_run':None},
+        # 'tuna_eater':{'func':tuna_eater, 'args':[android],'kwargs':{},'cooldown':200,'last_run':None},
         # 'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':0},
     }
 
@@ -121,6 +122,78 @@ def main():
             # helper(android)
             # time.sleep(1)
     logging.info('Bruh we done')
+
+
+def mercenary(android:AndroidTouchControl):
+    # pdb.set_trace()
+    if (icon:=android.wait_for_image(static_paths['merc_icon2'])):
+        android.tap(*icon)
+        time.sleep(1)
+        android.click_on_image(path_for([static_paths['mer_folder'],'Scout.png']),)
+        if (m:=android.wait_for_image(path_for([static_paths['mer_folder'],'Attack.png']),10)):
+            android.tap(*m)
+            time.sleep(1)
+            hero_selector(android,select_gina=True)
+            if android.wait_for_image(static_paths['likely'], 5):
+                logging.info('Deployment likely to succeed')
+                # hero_selector(android,select_gina=True)
+                #possibly add code here for hero selection
+                android.click_on_image(static_paths['deploy'])
+                #need to write code here for when deployment fails, due to no stamina maybe
+                time.sleep(0.5)
+                #Reset back to intel page
+                # android.click_on_image(static_paths['intel_button'])
+                time.sleep(0.5)
+                # break
+                return 0
+            else:
+                pdb.set_trace()
+                logging.info('Deployment not likely to succeed. Let us rally')
+                android._run_adb('shell','input','keyevent','4')
+                # android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+                time.sleep(1)
+                android.tap(*icon)
+
+                if (m:=android.wait_for_image(static_paths['rally'],timeout=10)):#convert to wait if statement coz maybe you don't find any 
+                    android.tap(*m)
+                    time.sleep(1)
+                    #add rally time stuff here, I guess
+                    android.click_on_image(static_paths['hold_rally'])
+                    #probably add the hero selection here
+                    hero_selector(android,select_gina=True)
+                    
+                    if (m:=android.wait_for_image(static_paths['deploy'],timeout=10)):
+                    #wait for exploration here coz there maybe someone else is marching towards the target. 
+                        # Key press 4 puts you back. Better than 
+                        # android._run_adb('shell','input','keyevent','4')
+                    # Wait 10 sec, then back button till exploration visible
+                        android.tap(*m)
+                        if (m:=android.wait_for_image(static_paths['exploration'],5)):
+                            return 0
+                        else:
+                            logging.info('Looks like there is no tuna, or something else went wrong')
+                            logging.info('Something is the best you have, I am lazy')
+                            logging.info('Trying to go back')
+                            for i in range(4):
+                                android._run_adb('shell','input','keyevent','4')
+                                if (m:=android.wait_for_image(static_paths['exploration'],1)):
+                                    return 1
+                            else:
+                                logging.info('Backing up failed. Reset-game time')
+                                skip_shit_and_start_game(shutdown=True)
+#         (555, 1088)
+# (Pdb) android.wait_for_image(path_for([static_paths['mer_folder'],'Attack.png']))
+# (460, 1201)
+# (Pdb) android.tap(460,1201)
+# (Pdb) back_btn
+# *** NameError: name 'back_btn' is not defined
+# (Pdb) android.tap(555,1088)
+# (Pdb) android.wait_for_image(path_for([static_paths['mer_folder'],'Rally.png']))
+# (259, 1200)
+# (Pdb) android.tap(259,1200)
+# (Pdb) hold rally{}
+    else:
+        logging.info('Merc icon not found, remember you need the quick btn to use this')
 
 
 def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokhan = False, select_meat = False, select_wood = False , select_iron = False,**kwargs):
@@ -333,7 +406,7 @@ def helper(android:AndroidTouchControl|None, default_timeout = 2, **kwargs):
             android.tap(*m)
     return 0
 
-def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True):
+def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True, go_to_world = True):
     if android is None:
         print('Failed to connect, try reconnecting devie if it has happened before')
         print('I kill this process in 5 seconds')
@@ -372,6 +445,12 @@ def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True):
                 logging.info('Game blocked me, gege')
                 time.sleep(5)
                 exit()
+        
+    if go_to_world:
+        if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','World.png'),
+                            timeout=5)):
+            logging.info('Not on World map, going there')
+            android.tap(*m)
 
 if __name__ == '__main__':
     main()
