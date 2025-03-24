@@ -91,9 +91,9 @@ def main():
     # pdb.set_trace()
     #switch to the world map
     func_dict = {
-        'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},
+        # 'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},
         'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':None},
-        # 'tuna_eater':{'func':tuna_eater, 'args':[android],'kwargs':{},'cooldown':200,'last_run':None},
+        'tuna_eater':{'func':tuna_eater, 'args':[android],'kwargs':{},'cooldown':200,'last_run':None},
         # 'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':0},
     }
 
@@ -255,7 +255,14 @@ def tuna_eater(android, **kwargs):
                                 time.sleep(0.5)
                                 continue
                         logging.info('Something went wrong, aborting')
-                        return 1
+                        logging.info('Most likely no tuna')
+                        for i in range(4):
+                            android._run_adb('shell','input','keyevent','4')
+                            if (m:=android.wait_for_image(static_paths['exploration'],1)):
+                                return 1
+                        else:
+                            skip_shit_and_start_game(android)
+                            return 1
                     elif (m:=android.wait_for_image(static_paths['attack'],2)):
                         android.tap(*m)
                         time.sleep(0.5)
@@ -264,6 +271,16 @@ def tuna_eater(android, **kwargs):
                             hero_selector(android,select_gina=True)
                             #possibly add code here for hero selection
                             android.click_on_image(static_paths['deploy'])
+                            if (m:=android.wait_for_image(static_paths['exploration'],3)):
+                                logging.info('Looks like there is issue in deploying')
+                                for i in range(4):
+                                    android._run_adb('shell','input','keyevent','4')
+                                    if (m:=android.wait_for_image(static_paths['exploration'],1)):
+                                        return 1
+                                else:
+                                    skip_shit_and_start_game(android)
+                                    return 1
+
                             #need to write code here for when deployment fails, due to no stamina maybe
                             time.sleep(0.5)
                             #Reset back to intel page
