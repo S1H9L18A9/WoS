@@ -162,7 +162,8 @@ def visualize_matches(screenshot_path, matches, output_path=None):
 
 def main():
     # Configuration
-    seed_folder = r"C:\Users\sahilr\Downloads\Whiteout Survival\Whiteout Survival\image\Intel"
+    # seed_folder = r"C:\Users\sahilr\Downloads\Whiteout Survival\Whiteout Survival\image\Intel"
+    seed_folder = "..\\test_images"
     screenshots = ["..\\screen_intel.png", "..\\screen_heal_click.png"]
     threshold = 0.9
     
@@ -181,6 +182,7 @@ def main():
                 print(f"  {i}. {match['seed_path']} - Probability: {match['probability']:.4f}, Position: {match['position']}")
         else:
             print(f"\nNo matches found in {screenshot_path}")
+    print(results)
 
 if __name__ == "__main__":
     main()

@@ -219,6 +219,41 @@ def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokha
         return
 
 
+def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
+    func_list = [
+        {'name':'tuna_eater','func':tuna_eater, 'args':[android],'kwargs':{},'cooldown':200,},
+        {'name':'mercenary','func':mercenary, 'args':[android],'kwargs':{},'cooldown':100,},
+        {'name':'hunter','func':hunter, 'args':[android],'kwargs':{},'cooldown':200,},
+        # 'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},
+    ]
+    if not (index:=kwargs.get('task')):
+        task = func_list[index]
+    else:
+        task = func_list[0]
+    # logging.info('Helping perpetually')
+    # while True:
+    #     # pdb.set_trace()
+    #     # hero_selector(android)
+    #     # tuna_eater(android)
+    #     # hunter(android)
+        # for task in func_dict.items():
+        #     if (not task[1]['last_run']) or ((datetime.now() - task[1]['last_run']).total_seconds() > task[1]['cooldown']):
+        #         if not task[0].lower().startswith('help'):
+        #             logging.info(f'Doing task: {task[0]}')
+    result = task['func'](*task['args'],**task['kwargs'])
+    if type(result) is int:
+        if result:
+            if result == 2: 
+                #I decided result 2 will be when no images found in intel
+                if (counter:= kwargs.get('found_no_intel_counter')):
+                    if counter >2:
+                        return 0, {'kwargs':{**kwargs,'task':1}}
+                    return 0, {'kwargs':{'found_no_intel_counter':counter+1},'cooldown': 60}
+                else:
+                    return 0, {'kwargs':{**kwargs},'cooldown': task['cooldown']}
+        else:
+            return 0,{'cooldown':task['cooldown']}
+
 def tuna_eater(android:AndroidTouchControl, **kwargs):
     if (intel_button:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Intel Button.png'),
                            timeout=2)):
