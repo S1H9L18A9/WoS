@@ -94,7 +94,7 @@ def main():
     func_dict = {
         # 'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},
         'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':None},
-        'tuna_eater':{'func':tuna_eater, 'args':[android],'kwargs':{},'cooldown':200,'last_run':None},
+        'tuna_eater':{'func':tuna_eater_wrapper, 'args':[android],'kwargs':{},'cooldown':200,'last_run':None},
         # 'help':{'func':helper, 'args':[android],'kwargs':{'default_timeout':2},'cooldown':0,'last_run':0},
     }
 
