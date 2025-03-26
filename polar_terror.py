@@ -86,9 +86,10 @@ def main():
 # adb shell monkey -p com.gof.global -c android.intent.category.LAUNCHER 1
 # adb shell am force-stop com.gof.global
 
+    pdb.set_trace()
+    
     skip_shit_and_start_game(android, shutdown = False)
     logging.info('Ideally now I am in game')
-    # pdb.set_trace()
     #switch to the world map
     func_dict = {
         # 'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},
@@ -206,7 +207,7 @@ def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokha
         if 'gina' not in current_heroes['marksman'][0]['seed_path'].lower():
             android.tap(*current_heroes['marksman'][0]['position'])
             time.sleep(1)
-            android.tap(510,1150)
+            # android.tap(510,1150)
             time.sleep(1)
             android.click_on_image(static_paths['gina'])
             android.tap(510,1150)
@@ -216,146 +217,154 @@ def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokha
         return
 
 
-def tuna_eater(android, **kwargs):
+def tuna_eater(android:AndroidTouchControl, **kwargs):
     if (intel_button:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Intel Button.png'),
                            timeout=2)):
         logging.info('found intel, going there')
         android.tap(*intel_button)
         time.sleep(1)
-        # results = find_images_in_screenshot('template_images\\Intel',[android.take_screenshot()],0.9,True)
-        results = find_images_in_screenshot(static_paths['intel'],[android.take_screenshot()],0.9,True,21)
-        results = results['screen.png']
-        #if results are 0, need to go to polar terror section
-        if len(results):
-            # pdb.set_trace()
-            results.sort(key=lambda x: x['probability'], reverse = True)
-            # results.sort(key=lambda x: x['seed_path'])
-            backtrack_index = 0
-            for intel in results:
-                android.tap(*intel['position'])
-                if (m:=android.wait_for_image(static_paths['view'],5)):
-                    logging.info('Active intel')
-                    android.tap(*m)
-                    if (m:=android.wait_for_image(static_paths['rescue'],5)):
-                        logging.info('Rescue mission, no need to pause')
+        if (android.wait_for_image(path_for(['template_images','Intel cans.png']),5)):
+            # results = find_images_in_screenshot('template_images\\Intel',[android.take_screenshot()],0.9,True)
+            results = find_images_in_screenshot(static_paths['intel'],[android.take_screenshot()],0.9,True,21)
+            results = results['screen.png']
+            #if results are 0, need to go to polar terror section
+            if len(results):
+                # pdb.set_trace()
+                results.sort(key=lambda x: x['probability'], reverse = True)
+                # results.sort(key=lambda x: x['seed_path'])
+                backtrack_index = 0
+                for intel in results:
+                    android.tap(*intel['position'])
+                    if (m:=android.wait_for_image(static_paths['view'],5)):
+                        logging.info('Active intel')
                         android.tap(*m)
-                        time.sleep(1)
-                        android.tap(*intel_button)
-                        time.sleep(0.5)
-                    elif (m:=android.wait_for_image(static_paths['explore'],2)):
-                        logging.info('Explore mission, no need to pause')
-                        android.tap(*m)
-                        if (m:=android.wait_for_image(static_paths['fight'],5)):
+                        if (m:=android.wait_for_image(static_paths['rescue'],5)):
+                            logging.info('Rescue mission, no need to pause')
                             android.tap(*m)
-                            if (m:=android.wait_for_image(static_paths['fight_skip'],15)):
+                            time.sleep(1)
+                            android.tap(*intel_button)
+                            time.sleep(0.5)
+                        elif (m:=android.wait_for_image(static_paths['explore'],2)):
+                            logging.info('Explore mission, no need to pause')
+                            android.tap(*m)
+                            if (m:=android.wait_for_image(static_paths['fight'],5)):
                                 android.tap(*m)
-                                logging.info('Exploration complete')
-                                time.sleep(1)
-                                android.tap(*intel_button)
-                                time.sleep(0.5)
-                                continue
-                        logging.info('Something went wrong, aborting')
-                        logging.info('Most likely no tuna')
-                        for i in range(4):
-                            android._run_adb('shell','input','keyevent','4')
-                            if (m:=android.wait_for_image(static_paths['exploration'],1)):
-                                return 1
-                        else:
-                            skip_shit_and_start_game(android)
-                            return 1
-                    elif (m:=android.wait_for_image(static_paths['attack'],2)):
-                        android.tap(*m)
-                        time.sleep(0.5)
-                        if android.wait_for_image(static_paths['likely'], 5):
-                            logging.info('Deployment likely to succeed')
-                            hero_selector(android,select_gina=True)
-                            #possibly add code here for hero selection
-                            android.click_on_image(static_paths['deploy'])
-                            if (m:=android.wait_for_image(static_paths['exploration'],3)):
-                                logging.info('Looks like there is issue in deploying')
-                                for i in range(4):
-                                    android._run_adb('shell','input','keyevent','4')
-                                    if (m:=android.wait_for_image(static_paths['exploration'],1)):
-                                        return 1
-                                else:
-                                    skip_shit_and_start_game(android)
+                                if (m:=android.wait_for_image(static_paths['fight_skip'],15)):
+                                    android.tap(*m)
+                                    logging.info('Exploration complete')
+                                    time.sleep(1)
+                                    android.tap(*intel_button)
+                                    time.sleep(0.5)
+                                    continue
+                            logging.info('Something went wrong, aborting')
+                            logging.info('Most likely no tuna')
+                            for i in range(4):
+                                android._run_adb('shell','input','keyevent','4')
+                                if (m:=android.wait_for_image(static_paths['exploration'],1)):
                                     return 1
+                            else:
+                                skip_shit_and_start_game(android)
+                                return 1
+                        elif (m:=android.wait_for_image(static_paths['attack'],2)):
+                            android.tap(*m)
+                            time.sleep(0.5)
+                            if android.wait_for_image(static_paths['likely'], 5):
+                                logging.info('Deployment likely to succeed')
+                                hero_selector(android,select_gina=True)
+                                #possibly add code here for hero selection
+                                android.click_on_image(static_paths['deploy'])
+                                if (m:=android.wait_for_image(static_paths['exploration'],3)):
+                                    logging.info('Deployment successful')
+                                    return 0
+                                else:
+                                    logging.info('Looks like there is issue in deploying')
+                                    for i in range(4):
+                                        android._run_adb('shell','input','keyevent','4')
+                                        if (m:=android.wait_for_image(static_paths['exploration'],1)):
+                                            return 1
+                                    else:
+                                        skip_shit_and_start_game(android)
+                                        return 1
 
-                            #need to write code here for when deployment fails, due to no stamina maybe
-                            time.sleep(0.5)
-                            #Reset back to intel page
-                            # android.click_on_image(static_paths['intel_button'])
-                            time.sleep(0.5)
-                            # break
-                            return 0
-                elif (m:=android.wait_for_image(static_paths['anywhere_skip'],2)):
-                    logging.info('A completed intel, claiming rewards and keep going')
-                    android.tap(*m)
-                    backtrack_index += 1
-                elif 'check' in intel['seed_path'].lower():
-                    logging.info('A check mark detected, ideally this was after anywhere skip. Continuing')
-                else:
-                    logging.info('Did not fit any criteria. Maybe a completed intel?')
-                    if backtrack_index:
-                        backtrack_index -= 1
+                                #need to write code here for when deployment fails, due to no stamina maybe
+                                time.sleep(0.5)
+                                #Reset back to intel page
+                                # android.click_on_image(static_paths['intel_button'])
+                                time.sleep(0.5)
+                                # break
+                                return 0
+                    elif (m:=android.wait_for_image(static_paths['anywhere_skip'],2)):
+                        logging.info('A completed intel, claiming rewards and keep going')
+                        android.tap(*m)
+                        backtrack_index += 1
+                    elif 'check' in intel['seed_path'].lower():
+                        logging.info('A check mark detected, ideally this was after anywhere skip. Continuing')
                     else:
-                        print('Program has crashed, it should not be here')
-                        logging.info('Program should not be here. Or it is a manifestation on laziness on the part of the coder')
-                        logging.info('Edge cases are hard')
-                        # break
-                        return 1
-                        # pdb.set_trace()
+                        logging.info('Did not fit any criteria. Maybe a completed intel?')
+                        if backtrack_index:
+                            backtrack_index -= 1
+                        else:
+                            print('Program has crashed, it should not be here')
+                            logging.info('Program should not be here. Or it is a manifestation on laziness on the part of the coder')
+                            logging.info('Edge cases are hard')
+                            # break
+                            return 1
+                            # pdb.set_trace()
 
-                # if 'hunting' in intel['seed_path'].lower():
-                #     time.sleep(0.5)
-                #     android.click_on_image(static_paths['view'])
-                #     time.sleep(0.5)
-                #     android.click_on_image(static_paths['attack'])
-                #     time.sleep(0.5)
-                #     if android.wait_for_image(static_paths['likely'], 5):
-                #         logging.info('Deployment likely to succeed')
-                #         #possibly add code here for hero selection
-                #         android.click_on_image(static_paths['deploy'])
-                #         #need to write code here for when deployment fails, due to no stamina maybe
-                #         time.sleep(0.5)
-                #         #Reset back to intel page
-                #         android.click_on_image(static_paths['intel_button'])
-                #         time.sleep(0.5)
-                # elif 'check' in intel['seed_path'].lower():
-                #     android.tap(*intel['position'])
-                #     if (m:=android.wait_for_image(static_paths['anywhere_skip'])):
-                #         android.tap(*m)
-                # else:
-                #     android.tap(*intel['position'])
-                #     time.sleep(0.5)
-                #     android.tap(375,1050)
-                #     time.sleep(1)
-                #     android.tap(360,800)
-                #     time.sleep(1)
-                #     android.tap(540,1460)
-                #     time.sleep(1)
-                #     android.tap(*intel_button)
-                #     time.sleep(1)
+                    # if 'hunting' in intel['seed_path'].lower():
+                    #     time.sleep(0.5)
+                    #     android.click_on_image(static_paths['view'])
+                    #     time.sleep(0.5)
+                    #     android.click_on_image(static_paths['attack'])
+                    #     time.sleep(0.5)
+                    #     if android.wait_for_image(static_paths['likely'], 5):
+                    #         logging.info('Deployment likely to succeed')
+                    #         #possibly add code here for hero selection
+                    #         android.click_on_image(static_paths['deploy'])
+                    #         #need to write code here for when deployment fails, due to no stamina maybe
+                    #         time.sleep(0.5)
+                    #         #Reset back to intel page
+                    #         android.click_on_image(static_paths['intel_button'])
+                    #         time.sleep(0.5)
+                    # elif 'check' in intel['seed_path'].lower():
+                    #     android.tap(*intel['position'])
+                    #     if (m:=android.wait_for_image(static_paths['anywhere_skip'])):
+                    #         android.tap(*m)
+                    # else:
+                    #     android.tap(*intel['position'])
+                    #     time.sleep(0.5)
+                    #     android.tap(375,1050)
+                    #     time.sleep(1)
+                    #     android.tap(360,800)
+                    #     time.sleep(1)
+                    #     android.tap(540,1460)
+                    #     time.sleep(1)
+                    #     android.tap(*intel_button)
+                    #     time.sleep(1)
+                else:
+                    pdb.set_trace()
+                    logging.info('Looks like intel is done, time for polar terror')
+                    android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+                    hunter(android)
+                    return 0#, {'func':hunter}
+                
+            #375, 1050 to click view - image name View.png
+            #360, 800 to click attack, save
+            #540, 1460 to deploy, need to check if I still have tuna
             else:
                 pdb.set_trace()
-                logging.info('Looks like intel is done, time for polar terror')
+                logging.info('No intel found, going for polar')
                 android.tap(*static_points['points']['recorded_at_720x1520']['back'])
-                hunter(android)
-                return 0#, {'func':hunter}
-            
-        #375, 1050 to click view - image name View.png
-        #360, 800 to click attack, save
-        #540, 1460 to deploy, need to check if I still have tuna
+                if (m:=kwargs.get('nothing_found_count')):
+                    if m >3: # type: ignore
+                        return 0, {'func':hunter, 'cooldown':360}
+                    return 0,{'kwargs':{'nothing_found_count':m+1}} # type: ignore
+                else:
+                    return 0, {'kwargs':{'nothing_found_count':1}}
         else:
-            pdb.set_trace()
-            logging.info('No intel found, going for polar')
-            android.tap(*static_points['points']['recorded_at_720x1520']['back'])
-            if (m:=kwargs.get('nothing_found_count')):
-                if m >3: # type: ignore
-                    return 0, {'func':hunter, 'cooldown':360}
-                return 0,{'kwargs':{'nothing_found_count':m+1}} # type: ignore
-            else:
-                return 0, {'kwargs':{'nothing_found_count':1}}
+            logging.info('Tried clicking on intel button, did not work')
+            return 1
+        
     else:
         logging.info('Cannot find the Intel button, maybe I am not on the World page')
         return 1
@@ -436,23 +445,28 @@ def skip_shit_and_start_game(android:AndroidTouchControl|None, shutdown = True, 
     android._run_adb('shell','monkey','-p','com.gof.global','-c','android.intent.category.LAUNCHER','1')
     # android.tap(670,70)
     logging.info('Waiting for game to load up')
-    if (n:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Confirm Button.png'),
-                           timeout=25)):
-        android.tap(*n)
-    elif (n:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Exploration.png'),
-                           timeout=5)):
-        # android.tap(*n)
-        pass
+    for _ in range(12):
+        if (n:=android.wait_for_image(path_for(['template_images','Confirm Button.png']),
+                            timeout=2)):
+            logging.info('Found confirm button, game open')
+            android.tap(*n)
+            break
+
+        elif (n:=android.find_template(path_for(['template_images','Exploration.png']),'screen.png')):
+            # android.tap(*n)
+            logging.info('Looks like I loaded straight in. Did I crash?')
+            break
     else:
         logging.info('I am being sold some random junk, need to get out')
         for i in range(3):
-            android.tap(670+i*10,70)
-            if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Confirm Button.png'),
+            # android.tap(670+i*10,70)
+            
+            android._run_adb('shell','input','keyevent','4')
+            if (m:=android.wait_for_image(path_for(['template_images','Confirm Button.png']),
                            timeout=3)):
                 android.tap(*m)
                 break
-            elif (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Exploration.png'),
-                           timeout=3)):
+            elif (m:=android.wait_for_image(path_for(['template_images','Exploration.png']),timeout=3)):
                 break
         else:
             if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Exploration.png'),
