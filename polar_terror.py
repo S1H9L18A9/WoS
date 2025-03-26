@@ -113,6 +113,8 @@ def main():
                     if  type(result) is tuple:
                         task[1].update(result[1])
                     task[1]['last_run'] = datetime.now()
+                except KeyboardInterrupt:
+                    raise
                 except Exception as e:
                     logging.info(f'Error on {task[0]} : {e}')
             else:
