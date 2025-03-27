@@ -270,6 +270,7 @@ def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
         if result == 0:
             if extra.get('attack'):
                 return 0, {'cooldown':5, 'kwargs':{'passdown':{task['name']:{'attack':True}}}}
+        return result, {'cooldown':5, 'kwargs':{**kwargs,**extra}}
 
 
 def get_to_world_page(android:AndroidTouchControl, retries = 5):
