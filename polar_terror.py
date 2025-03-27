@@ -249,6 +249,7 @@ def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
     if type(result) is int:
         if result:
             if result == 2: 
+                get_to_world_page(android)
                 #I decided result 2 will be when no images found in intel
                 if (counter:= kwargs.get('found_no_intel_counter')):
                     if counter >2:
