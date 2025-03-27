@@ -197,6 +197,7 @@ def mercenary(android:AndroidTouchControl):
 # (Pdb) hold rally{}
     else:
         logging.info('Merc icon not found, remember you need the quick btn to use this')
+        return 1, {'task':2}
 
 
 def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokhan = False, select_meat = False, select_wood = False , select_iron = False,**kwargs):
@@ -226,10 +227,11 @@ def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
         {'name':'hunter','func':hunter, 'args':[android],'kwargs':{},'cooldown':200,},
         # 'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},
     ]
-    if not (index:=kwargs.get('task')):
-        task = func_list[index]
+    if (kwargs.get('task')):
+        index_of_task = kwargs.get('task')
     else:
-        task = func_list[0]
+        index_of_task = 0
+    task = func_list[index_of_task]
     # logging.info('Helping perpetually')
     # while True:
     #     # pdb.set_trace()
@@ -240,6 +242,9 @@ def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
         #     if (not task[1]['last_run']) or ((datetime.now() - task[1]['last_run']).total_seconds() > task[1]['cooldown']):
         #         if not task[0].lower().startswith('help'):
         #             logging.info(f'Doing task: {task[0]}')
+    # if ('passdown' in kwargs.keys()) and (task['name'] in kwargs['passdown'].keys()):
+    #     result = task['func'](*task['args'],**task['kwargs'],**kwargs['passdown'][task['name']])
+    # else:
     result = task['func'](*task['args'],**task['kwargs'])
     if type(result) is int:
         if result:
@@ -247,12 +252,38 @@ def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
                 #I decided result 2 will be when no images found in intel
                 if (counter:= kwargs.get('found_no_intel_counter')):
                     if counter >2:
-                        return 0, {'kwargs':{**kwargs,'task':1}}
-                    return 0, {'kwargs':{'found_no_intel_counter':counter+1},'cooldown': 60}
+                        return 0, {'kwargs':{**kwargs,'task':index_of_task+1}}
+                    return 0, {'kwargs':{'found_no_intel_counter':counter+1},'cooldown': 30}
                 else:
                     return 0, {'kwargs':{**kwargs},'cooldown': task['cooldown']}
+            elif result == 4: 
+                #I decided result 4 will be when no images found in intel
+                return 0, {'kwargs':{**kwargs,'task':index_of_task+1}}
+            #If we are here, it means the result did fail and we are need to clean up and go back to world page
+            get_to_world_page(android)
+            return 0, {'cooldown':30}
         else:
             return 0,{'cooldown':task['cooldown']}
+    else:
+        result, extra = result
+        if result == 0:
+            if extra.get('attack'):
+                return 0, {'cooldown':5, 'kwargs':{'passdown':{task['name']:{'attack':True}}}}
+
+
+def get_to_world_page(android:AndroidTouchControl, retries = 5):
+    
+    for i in range(retries):
+        android._run_adb('shell','input','keyevent','4')
+        if (m:=android.wait_for_image(static_paths['exploration'],2)):
+            if (m:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','World.png'),
+                                timeout=5)):
+                logging.info('Not on World map, going there')
+                android.tap(*m)
+            return 0
+    else:
+        skip_shit_and_start_game(android)
+        return 1
 
 def tuna_eater(android:AndroidTouchControl, **kwargs):
     if (intel_button:=android.wait_for_image(os.path.join((os.path.abspath('')),'template_images','Intel Button.png'),
@@ -295,14 +326,18 @@ def tuna_eater(android:AndroidTouchControl, **kwargs):
                                     continue
                             logging.info('Something went wrong, aborting')
                             logging.info('Most likely no tuna')
-                            for i in range(4):
-                                android._run_adb('shell','input','keyevent','4')
-                                if (m:=android.wait_for_image(static_paths['exploration'],1)):
-                                    return 1
-                            else:
-                                skip_shit_and_start_game(android)
-                                return 1
+                            return 1
+                            # for i in range(4):
+                            #     android._run_adb('shell','input','keyevent','4')
+                            #     if (m:=android.wait_for_image(static_paths['exploration'],1)):
+                            #         return 1
+                            # else:
+                            #     skip_shit_and_start_game(android)
+                            #     return 1
                         elif (m:=android.wait_for_image(static_paths['attack'],2)):
+                            # if kwargs.get('attack'):
+                            #     logging.info('An attack already on going, so skipping this')
+                            #     continue
                             android.tap(*m)
                             time.sleep(0.5)
                             if android.wait_for_image(static_paths['likely'], 5):
@@ -312,16 +347,22 @@ def tuna_eater(android:AndroidTouchControl, **kwargs):
                                 android.click_on_image(static_paths['deploy'])
                                 if (m:=android.wait_for_image(static_paths['exploration'],3)):
                                     logging.info('Deployment successful')
-                                    return 0
+                                    return 0#, {'attack':1}
                                 else:
                                     logging.info('Looks like there is issue in deploying')
-                                    for i in range(4):
-                                        android._run_adb('shell','input','keyevent','4')
-                                        if (m:=android.wait_for_image(static_paths['exploration'],1)):
-                                            return 1
-                                    else:
-                                        skip_shit_and_start_game(android)
-                                        return 1
+                                    return 1
+                                    # for i in range(4):
+                                    #     android._run_adb('shell','input','keyevent','4')
+                                    #     if (m:=android.wait_for_image(static_paths['exploration'],1)):
+                                    #         return 1
+                                    # else:
+                                    #     skip_shit_and_start_game(android)
+                                    #     return 1
+                            else:
+                                logging.info('This is weird. I should be able to attack')
+                                logging.info('But I cannot, success not likely')
+                                logging.info('We wait for troops maybe')
+                                return 1
 
                                 #need to write code here for when deployment fails, due to no stamina maybe
                                 time.sleep(0.5)
@@ -336,6 +377,7 @@ def tuna_eater(android:AndroidTouchControl, **kwargs):
                         backtrack_index += 1
                     elif 'check' in intel['seed_path'].lower():
                         logging.info('A check mark detected, ideally this was after anywhere skip. Continuing')
+                        backtrack_index -=1
                     else:
                         logging.info('Did not fit any criteria. Maybe a completed intel?')
                         if backtrack_index:
@@ -390,14 +432,15 @@ def tuna_eater(android:AndroidTouchControl, **kwargs):
             #540, 1460 to deploy, need to check if I still have tuna
             else:
                 pdb.set_trace()
-                logging.info('No intel found, going for polar')
-                android.tap(*static_points['points']['recorded_at_720x1520']['back'])
-                if (m:=kwargs.get('nothing_found_count')):
-                    if m >3: # type: ignore
-                        return 0, {'func':hunter, 'cooldown':360}
-                    return 0,{'kwargs':{'nothing_found_count':m+1}} # type: ignore
-                else:
-                    return 0, {'kwargs':{'nothing_found_count':1}}
+                logging.info('No intel found, absolutely no intel left')
+                return 2
+                # android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+                # if (m:=kwargs.get('nothing_found_count')):
+                #     if m >3: # type: ignore
+                #         return 0, {'func':hunter, 'cooldown':360}
+                #     return 0,{'kwargs':{'nothing_found_count':m+1}} # type: ignore
+                # else:
+                #     return 0, {'kwargs':{'nothing_found_count':1}}
         else:
             logging.info('Tried clicking on intel button, did not work')
             return 1

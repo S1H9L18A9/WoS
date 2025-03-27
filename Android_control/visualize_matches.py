@@ -162,7 +162,7 @@ def visualize_matches(screenshot_path, matches, output_path=None):
 
 def main():
     # Configuration
-    # seed_folder = r"C:\Users\sahilr\Downloads\Whiteout Survival\Whiteout Survival\image\Intel"
+    # seed_folder = r"C:\Users\sahilr\Downloads\Whiteout Survival\Whiteout Survival\image\ocr"
     seed_folder = "..\\test_images"
     screenshots = ["..\\screen_intel.png", "..\\screen_heal_click.png"]
     threshold = 0.9
