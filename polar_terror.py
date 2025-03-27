@@ -255,7 +255,7 @@ def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
                         return 0, {'kwargs':{**kwargs,'task':index_of_task+1}}
                     return 0, {'kwargs':{'found_no_intel_counter':counter+1},'cooldown': 30}
                 else:
-                    return 0, {'kwargs':{**kwargs, 'found_no_intel_counter':1},'cooldown': task['cooldown']}
+                    return 0, {'kwargs':{**kwargs, 'found_no_intel_counter':1},'cooldown': 30}
             elif result == 4: 
                 #I decided result 4 will be when no images found in intel
                 return 0, {'kwargs':{**kwargs,'task':index_of_task+1}}
