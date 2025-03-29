@@ -129,9 +129,11 @@ def main():
 
 def mercenary(android:AndroidTouchControl):
     # pdb.set_trace()
-    if (icon:=android.wait_for_image(static_paths['merc_icon2'])):
+    if (icon:=android.wait_for_image(static_paths['merc_icon2'],2)):
         android.tap(*icon)
         time.sleep(1)
+        pdb.set_trace()
+        #Need to fix this, check if the Scout doesn't work if no tuna
         android.click_on_image(path_for([static_paths['mer_folder'],'Scout.png']),)
         if (m:=android.wait_for_image(path_for([static_paths['mer_folder'],'Attack.png']),10)):
             android.tap(*m)
@@ -197,10 +199,11 @@ def mercenary(android:AndroidTouchControl):
 # (Pdb) hold rally{}
     else:
         logging.info('Merc icon not found, remember you need the quick btn to use this')
-        return 1, {'task':2}
+        return 2
 
 
 def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokhan = False, select_meat = False, select_wood = False , select_iron = False,**kwargs):
+    # pdb.set_trace()
     current_heroes = {}
     for type in ('infantry','lancer','marksman'):
         results = find_images_in_screenshot(static_paths[f'hero_{type}'],[android.take_screenshot()],0.9,True)['screen.png']
@@ -212,11 +215,15 @@ def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokha
             time.sleep(1)
             # android.tap(510,1150)
             time.sleep(1)
-            android.click_on_image(static_paths['gina'])
-            android.tap(510,1150)
-            time.sleep(1)
-            android.tap(550,1450)
-            time.sleep(0.5)
+            if android.click_on_image(static_paths['gina']):
+                android.tap(510,1150)
+                time.sleep(1)
+                android.tap(550,1450)
+                time.sleep(0.5)
+                return True
+            else:
+                logging.info('Did not find Gina')
+                return False
         return
 
 
@@ -253,6 +260,7 @@ def tuna_eater_wrapper(android:AndroidTouchControl,**kwargs):
                 #I decided result 2 will be when no images found in intel
                 if (counter:= kwargs.get('found_no_intel_counter')):
                     if counter >2:
+                        pdb.set_trace()
                         return 0, {'kwargs':{**kwargs,'task':index_of_task+1}}
                     return 0, {'kwargs':{'found_no_intel_counter':counter+1},'cooldown': 30}
                 else:
@@ -433,7 +441,7 @@ def tuna_eater(android:AndroidTouchControl, **kwargs):
             #360, 800 to click attack, save
             #540, 1460 to deploy, need to check if I still have tuna
             else:
-                pdb.set_trace()
+                # pdb.set_trace()
                 logging.info('No intel found, absolutely no intel left')
                 return 2
                 # android.tap(*static_points['points']['recorded_at_720x1520']['back'])
@@ -453,7 +461,7 @@ def tuna_eater(android:AndroidTouchControl, **kwargs):
 
 
 def hunter(android:AndroidTouchControl|None,number = 4, **kwargs):
-    pdb.set_trace()
+    # pdb.set_trace()
     if (m:=android.wait_for_image(static_paths['magnifyer']),2):
         android.tap(*m)
         time.sleep(0.5)
