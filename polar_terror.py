@@ -206,7 +206,7 @@ def hero_selector(android:AndroidTouchControl, select_gina = False, select_bokha
     # pdb.set_trace()
     current_heroes = {}
     for type in ('infantry','lancer','marksman'):
-        results = find_images_in_screenshot(static_paths[f'hero_{type}'],[android.take_screenshot()],0.9,True)['screen.png']
+        results = find_images_in_screenshot(static_paths[f'hero_{type}'],[android.take_screenshot()],0.8,True)['screen.png']
         if len(results):
             current_heroes[type] = results
     if select_gina:

@@ -8,6 +8,7 @@ import warnings
 #warnings.filterwarnings("ignore", message=".*sBIT.*") #I don't know how to fix this, there is no way I click 
 #warnings.filterwarnings('ignore', category=UserWarning)#images again. Will worry later
 import cv2
+import numpy as np
 # adb shell monkey -p com.gof.global -c android.intent.category.LAUNCHER 1
 
 from contextlib import contextmanager
@@ -126,6 +127,105 @@ class AndroidTouchControl:
                 raise Exception(f"Screenshot resolution mismatch. Expected {self.max_x}x{self.max_y}, got {width}x{height}")
         
         return output_path
+
+
+    def find_image_in_area(self,seed_path, screenshot_path=None, threshold = 0.8, filter = False, 
+                                start=(0,0), end= None, margin = 0):
+        """
+        Find all occurrences of seed images in the given screenshots.
+        
+        Args:
+            seed_folder (str): Path to folder containing seed images and subfolders
+            screenshot_paths (list): List of paths to screenshot images to search in
+            threshold (float): Minimum match probability (0.0 to 1.0)
+            
+        Returns:
+            dict: Results organized by screenshot with matches for each seed image
+        """
+        if end is None:
+            end = (self.max_x,self.max_y)
+        # Get all image files recursively from the seed folder
+        # seed_images = []
+        # valid_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff']
+        
+        # for root, _, files in os.walk(seed_folder):
+        #     for file in files:
+        #         ext = os.path.splitext(file)[1].lower()
+        #         if ext in valid_extensions:
+        #             file_path = os.path.join(root, file)
+        #             relative_path = os.path.relpath(file_path, seed_folder)
+                    # seed_images.append((relative_path, file_path))
+        
+        # print(f"Found {len(seed_images)} seed images")
+        
+        # Initialize results dictionary
+        results = {}
+        
+        # Check each screenshot
+        # for screenshot_path in screenshot_paths:
+        if screenshot_path is None:
+            screenshot_path= self.take_screenshot()
+        screenshot = cv2.imread(screenshot_path)
+        if screenshot is None:
+            print(f"Error: Could not load screenshot at {screenshot_path}")
+            # continue
+            return 
+            
+        screenshot_gray = cv2.cvtColor(screenshot, cv2.COLOR_BGR2GRAY)
+        
+        # Initialize results for this screenshot
+        screenshot_results = []
+        
+        # Search for each seed image
+        # for relative_path, seed_path in seed_images:
+        seed_img = cv2.imread(seed_path)
+        if seed_img is None:
+            print(f"Error: Could not load seed image at {seed_path}")
+            return
+            
+        seed_gray = cv2.cvtColor(seed_img, cv2.COLOR_BGR2GRAY)
+        
+        # Use template matching to find the seed image in the screenshot
+        result = cv2.matchTemplate(screenshot_gray, seed_gray, cv2.TM_CCOEFF_NORMED)
+        
+        # Find all locations where the match exceeds the threshold
+        locations = np.where(result >= threshold)
+        
+        # Process all matches
+        matches = []
+        # pdb.set_trace()
+        for y, x in zip(*locations):
+            # Get the match probability
+            for dimention in zip(start, (x,y), end):
+                if dimention[0] - margin <= dimention[1] <= dimention[2]+ margin:
+                    continue
+                break
+            else:
+                prob = result[y, x]
+                
+                # Record this match
+                match = {
+                    # 'seed_path': relative_path,
+                    'probability': float(prob),
+                    'position': (int(x), int(y)),
+                    'size': seed_img.shape[:2][::-1]  # (width, height)
+                }
+                matches.append(match)
+        
+        # If we found matches, add to results
+        # if matches:
+        #     if filter:
+        #         matches = filter_list_of(matches, min_distance)
+            # screenshot_results.extend(matches)
+        
+        # Sort results by probability (highest first)
+        results.sort(key=lambda x: x['probability'], reverse=True)
+        
+        # Add to overall results
+        # results[screenshot_path] = screenshot_results
+        print(f"Found {len(screenshot_results)} matches in {screenshot_path}")
+        return results
+
 
     def find_template(self, template_path, screenshot_path=None, threshold=0.8):
         """
