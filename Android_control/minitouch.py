@@ -219,12 +219,12 @@ class AndroidTouchControl:
             # screenshot_results.extend(matches)
         
         # Sort results by probability (highest first)
-        results.sort(key=lambda x: x['probability'], reverse=True)
+        matches.sort(key=lambda x: x['probability'], reverse=True)
         
         # Add to overall results
         # results[screenshot_path] = screenshot_results
-        print(f"Found {len(screenshot_results)} matches in {screenshot_path}")
-        return results
+        # print(f"Found {len(screenshot_results)} matches in {screenshot_path}")
+        return matches
 
 
     def find_template(self, template_path, screenshot_path=None, threshold=0.8):

@@ -2,7 +2,7 @@
 from datetime import datetime
 import pdb
 from Android_control.minitouch import AndroidTouchControl
-from Android_control.visualize_matches import find_images_in_screenshot
+from Android_control.visualize_matches import find_images_in_screenshot, visualize_matches
 import logging
 import logging.config
 import time
@@ -90,6 +90,8 @@ def main():
     
     skip_shit_and_start_game(android, shutdown = False)
     logging.info('Ideally now I am in game')
+    x = android.find_image_in_area(path_for(['template_images','OCR','m4.png']),threshold=0.6,start = (95,273),end = (405,280))
+    visualize_matches('screen.png', x,'test1.png')
     #switch to the world map
     func_dict = {
         # 'merc':{'func':mercenary,'args':[android],'kwargs':{},'cooldown':150,'last_run':None},

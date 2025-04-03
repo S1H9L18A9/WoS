@@ -144,13 +144,16 @@ def visualize_matches(screenshot_path, matches, output_path=None):
         x, y = match['position']
         w, h = match['size']
         prob = match['probability']
-        seed_path = match['seed_path']
+        if 'seed_path' in match.keys():
+            seed_path = match['seed_path']
+        else:
+            seed_path = ''
         
         # Draw rectangle
         cv2.rectangle(visual, (x, y), (x + w, y + h), (0, 255, 0), 2)
         
         # Add text with probability and seed path
-        text = f"{seed_path}: {prob:.2f}"
+        text = f"{seed_path}-{prob:.2f}"
         cv2.putText(visual, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
     
     # Save if requested
