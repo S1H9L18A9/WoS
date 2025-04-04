@@ -435,7 +435,8 @@ def tuna_eater(android:AndroidTouchControl, **kwargs):
                 else:
                     pdb.set_trace()
                     logging.info('Looks like intel is done, time for polar terror')
-                    android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+                    # android.tap(*static_points['points']['recorded_at_720x1520']['back'])
+                    get_to_world_page(android)
                     hunter(android)
                     return 0#, {'func':hunter}
                 
